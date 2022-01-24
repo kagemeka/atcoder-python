@@ -1,0 +1,59 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool.poetry]
+authors = ["kagemeka <kagemeka1@gmail.com>"]
+classifiers = []
+description = "AtCoder API."
+documentation = "https://github.com/competitive-programming-helper/atcoder-api"
+homepage = "https://github.com/competitive-programming-helper/atcoder-api"
+keywords = ["atcoder", "api"]
+license = "MIT"
+maintainers = ["kagemeka <kagemeka1@gmail.com>"]
+name = "atcoder-api"
+packages = [{include = "atcoder", from = "src"}]
+readme = "README.md"
+repository = "https://github.com/competitive-programming-helper/atcoder-api"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.10"
+
+[tool.poetry.extras]
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^"
+black = "^"
+blacken-docs = "^"
+flake8 = "^"
+isort = "^"
+mypy = "^"
+pydocstyle = "^"
+pytest = "^"
+
+[tool.black]
+# compatible configurations -> https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html
+line-length = 79
+target-version = ['py38', 'py39']
+
+[tool.flake8]
+count = 'true' # have not adaped to boolean value yet.
+exclude = "src/dsalgo/numba" 
+ignore = 'E203' 
+show-source = 'true' 
+statistics = 'true' 
+
+[tool.isort]
+# all config files -> https://pycqa.github.io/isort/docs/configuration/config_files.html
+# full options -> https://pycqa.github.io/isort/docs/configuration/options.html
+profile = "black"
+# see all profiles -> https://pycqa.github.io/isort/docs/configuration/profiles.html
+line_length = 79
+
+[tool.mypy]
+ignore_missing_imports = false
+strict_optional = true
+
+[tool.pytest]
+cache_dir = "/tmp/.pytest_cache"
