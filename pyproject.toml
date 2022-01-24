@@ -3,14 +3,15 @@ build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core>=1.0.0"]
 
 [tool.poetry]
-authors = ["kagemeka <kagemeka1@gmail.com>"]
+authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 classifiers = []
 description = "AtCoder API."
 documentation = "https://github.com/competitive-programming-helper/atcoder-api"
+exclude = ["./**/*_test.py", "./**/test_*.py", "./**/tests/"]
 homepage = "https://github.com/competitive-programming-helper/atcoder-api"
 keywords = ["atcoder", "api"]
 license = "MIT"
-maintainers = ["kagemeka <kagemeka1@gmail.com>"]
+maintainers = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 name = "atcoder-api"
 packages = [{include = "atcoder", from = "src"}]
 readme = "README.md"

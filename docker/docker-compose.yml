@@ -1,6 +1,5 @@
 version: '3.9'
 
-
 services:
   package_dev:
     build:
@@ -13,7 +12,7 @@ services:
       - type: bind
         source: $ROOT
         target: /root/$PROJECT
-        volume: 
+        volume:
           nocopy: true
         read_only: false
     working_dir: /root/$PROJECT
