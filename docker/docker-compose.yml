@@ -1,0 +1,19 @@
+version: '3.9'
+
+
+services:
+  package_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cp-helper/atcoder-api:latest
+    restart: on-failure
+    tty: true
+    volumes:
+      - type: bind
+        source: $ROOT
+        target: /root/$PROJECT
+        volume: 
+          nocopy: true
+        read_only: false
+    working_dir: /root/$PROJECT
