@@ -19,7 +19,12 @@ repository = "https://github.com/competitive-programming-helper/atcoder-api"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
+beautifulsoup4 = "^"
+boto3 = "^"
+pandas = "^"
 python = ">=3.9,<3.10"
+selenium = "^"
+tqdm = "^"
 
 [tool.poetry.extras]
 
