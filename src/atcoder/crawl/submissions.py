@@ -4,7 +4,7 @@ import typing
 import requests
 
 from atcoder.crawl.constant import CONTESTS_URL
-from atcoder.submission_status import SubmissionStatus
+from atcoder.submission import SubmissionStatus
 from atcoder.utils import unwrap
 
 
