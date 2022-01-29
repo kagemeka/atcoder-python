@@ -23,6 +23,7 @@ beautifulsoup4 = "^"
 boto3 = "^"
 pandas = "^"
 python = ">=3.9,<3.10"
+requests = "^"
 selenium = "^"
 tqdm = "^"
 
