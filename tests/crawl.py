@@ -4,10 +4,10 @@ import typing
 import bs4
 import requests
 
+from atcoder.crawl.submission import crawl_submission
 from atcoder.crawl.submissions import RequestParams, crawl_submissions_page
 from atcoder.crawl.utils import fetch_page_source
 from atcoder.scrape.utils import parse_html
-from atcoder.crawl.submission import crawl_submission
 
 
 async def submissions() -> None:

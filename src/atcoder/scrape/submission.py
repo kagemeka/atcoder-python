@@ -1,6 +1,7 @@
-import typing
 import dataclasses
 import datetime
+import typing
+
 from atcoder.submission_status import SubmissionStatus
 
 
