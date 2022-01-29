@@ -1,0 +1,7 @@
+/dist
+.mypy_cache
+__pycache__
+.history
+.vscode
+!.gitkeep
+
