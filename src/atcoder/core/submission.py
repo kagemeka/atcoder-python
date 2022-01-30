@@ -32,7 +32,8 @@ class JudgeResult:
 
 
 @dataclasses.dataclass
-class SubmissionSummary:
+class Submission:
+    id: int
     datetime: datetime.datetime
     task_id: str
     user: str
@@ -42,12 +43,7 @@ class SubmissionSummary:
     status: SubmissionStatus
     exec_time: typing.Optional[int] = None  # ms
     memory_usage: typing.Optional[int] = None  # kB
-
-
-@dataclasses.dataclass
-class Submission:
-    id: int
     contest_id: typing.Optional[str] = None
-    summary: typing.Optional[SubmissionSummary] = None
+    language_id: typing.Optional[int] = None  # 4047 for PyPy3
     code: typing.Optional[str] = None
     judge_details: typing.Optional[typing.List[JudgeResult]] = None

@@ -5,8 +5,8 @@ import pandas as pd
 from atcoder.core.scrape.utils import _strip_unit, parse_html
 from atcoder.core.submission import (
     JudgeResult,
+    Submission,
     SubmissionStatus,
-    SubmissionSummary,
     status_from_str,
 )
 from atcoder.core.utils import unwrap
@@ -20,13 +20,14 @@ async def scrape_id(html: bytes) -> int:
     return unwrap(match).group(1)
 
 
-async def scrape_summary(html: bytes) -> SubmissionSummary:
+async def scrape_summary(html: bytes) -> Submission:
     import datetime
 
     soup = await parse_html(html)
     infos = soup.table.find_all("tr")
     status = unwrap(status_from_str(infos[6].td.text))
-    summary = SubmissionSummary(
+    summary = Submission(
+        id=await scrape_id(html),
         datetime=datetime.datetime.strptime(
             infos[0].time.text,
             "%Y-%m-%d %H:%M:%S%z",

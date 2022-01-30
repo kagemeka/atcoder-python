@@ -1,6 +1,7 @@
 import asyncio
-import unittest
 import pprint
+import unittest
+
 from atcoder.core.crawl.submissions import crawl_submissions_page
 from atcoder.core.scrape.submissions import (
     scrape_pagination,
