@@ -1,4 +1,5 @@
 import dataclasses
+import datetime
 import enum
 import typing
 
@@ -25,3 +26,5 @@ class Contest:
     title: typing.Optional[str] = None
     type: typing.Optional[ContestType] = None
     status: typing.Optional[ContestStatus] = None
+    start_datetime: typing.Optional[datetime.datetime] = None
+    duration_sec: typing.Optional[int] = None

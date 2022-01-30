@@ -35,14 +35,14 @@ class JudgeResult:
 class Submission:
     id: int
     status: typing.Optional[SubmissionStatus] = None
-    submission_time: typing.Optional[datetime.datetime] = None
+    submission_datetime: typing.Optional[datetime.datetime] = None
     task_id: typing.Optional[str] = None
     user: typing.Optional[str] = None
     language: typing.Optional[str] = None
     score: typing.Optional[int] = None
-    code_size: typing.Optional[int] = None
-    exec_time: typing.Optional[int] = None  # ms
-    memory_usage: typing.Optional[int] = None  # kB
+    code_size_kb: typing.Optional[int] = None
+    exec_time_ms: typing.Optional[int] = None  # ms
+    memory_usage_kb: typing.Optional[int] = None  # kB
     contest_id: typing.Optional[str] = None
     language_id: typing.Optional[int] = None  # 4047 for PyPy3
     code: typing.Optional[str] = None

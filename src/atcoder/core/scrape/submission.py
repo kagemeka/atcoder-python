@@ -27,7 +27,7 @@ async def scrape_summary(html: bytes) -> Submission:
     infos = soup.table.find_all("tr")
     submission = Submission(
         id=await scrape_id(html),
-        submission_time=datetime.datetime.strptime(
+        submission_datetime=datetime.datetime.strptime(
             infos[0].time.text,
             "%Y-%m-%d %H:%M:%S%z",
         ),
@@ -35,12 +35,12 @@ async def scrape_summary(html: bytes) -> Submission:
         user=infos[2].a.get("href").split("/")[-1],
         language=infos[3].td.text,
         score=int(infos[4].td.text),
-        code_size=_strip_unit(infos[5].td.text),
+        code_size_kb=_strip_unit(infos[5].td.text),
         status=unwrap(status_from_str(infos[6].td.text.split()[-1])),
     )
     if submission.status != SubmissionStatus.CE:
-        submission.exec_time = _strip_unit(infos[7].td.text)
-        submission.memory_usage = _strip_unit(infos[8].td.text)
+        submission.exec_time_ms = _strip_unit(infos[7].td.text)
+        submission.memory_usage_kb = _strip_unit(infos[8].td.text)
     return submission
 
 

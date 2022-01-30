@@ -45,7 +45,7 @@ async def scrape_submissions(
         submission = Submission(
             id=infos[-1].a.get("href").split("/")[-1],
             contest_id=contest.id,
-            submission_time=datetime.datetime.strptime(
+            submission_datetime=datetime.datetime.strptime(
                 infos[0].time.text,
                 "%Y-%m-%d %H:%M:%S%z",
             ),
@@ -53,14 +53,14 @@ async def scrape_submissions(
             user=infos[2].a.get("href").split("/")[-1],
             language=infos[3].text,
             score=int(infos[4].text),
-            code_size=_strip_unit(infos[5].text),
+            code_size_kb=_strip_unit(infos[5].text),
             status=status,
         )
         if submission.status == SubmissionStatus.WJ:
             return submission
         if submission.status != SubmissionStatus.CE:
-            submission.exec_time = _strip_unit(infos[7].text)
-            submission.memory_usage = _strip_unit(infos[8].text)
+            submission.exec_time_ms = _strip_unit(infos[7].text)
+            submission.memory_usage_kb = _strip_unit(infos[8].text)
         return submission
 
     return [await scrape_submission(row) for row in table.tbody.find_all("tr")]
