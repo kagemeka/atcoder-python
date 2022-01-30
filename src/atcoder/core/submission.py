@@ -1,7 +1,7 @@
-import enum
-import typing
 import dataclasses
 import datetime
+import enum
+import typing
 
 
 class SubmissionStatus(enum.Enum):

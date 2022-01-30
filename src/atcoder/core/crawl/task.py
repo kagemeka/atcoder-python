@@ -1,6 +1,6 @@
 import requests
 
-from atcoder.crawl.constant import CONTESTS_URL
+from atcoder.core.crawl.constant import CONTESTS_URL
 
 
 async def crawl_task(

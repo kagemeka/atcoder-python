@@ -1,15 +1,17 @@
-from atcoder.scrape.utils import parse_html
-from atcoder.utils import unwrap
-from atcoder.submission import (
-    status_from_str,
-    SubmissionSummary,
-    JudgeResult,
-)
 import typing
+
 import pandas as pd
 
+from atcoder.core.scrape.utils import parse_html
+from atcoder.core.submission import (
+    JudgeResult,
+    SubmissionSummary,
+    status_from_str,
+)
+from atcoder.core.utils import unwrap
 
-async def scrape_submission_id(html: bytes) -> int:
+
+async def scrape_id(html: bytes) -> int:
     import re
 
     soup = await parse_html(html)
@@ -22,7 +24,7 @@ def _strip_unit(measured_value: str) -> int:
     return int(measured_value.split()[0])
 
 
-async def scrape_submission_summary(html: bytes) -> SubmissionSummary:
+async def scrape_summary(html: bytes) -> SubmissionSummary:
     import datetime
 
     soup = await parse_html(html)
@@ -49,8 +51,7 @@ async def scrape_code(html: bytes) -> str:
 
 
 async def scrape_judge_details(html: bytes) -> typing.List[JudgeResult]:
-    soup = await parse_html(html)
-    table = pd.read_html(soup.prettify())[-1]
+    table = pd.read_html(html)[-1]
     table.rename(
         columns={
             "Case Name": "case_name",
@@ -68,14 +69,6 @@ async def scrape_judge_details(html: bytes) -> typing.List[JudgeResult]:
 
 
 if __name__ == "__main__":
-    from atcoder.crawl.submission import crawl_submission
-    import asyncio
-    import pprint
+    import doctest
 
-    async def test() -> None:
-        response = await crawl_submission("abc236", 28755333)
-        print(await scrape_submission_id(response.content))
-        pprint.pprint(await scrape_judge_details(response.content))
-        await scrape_submission_summary(response.content)
-
-    asyncio.run(test())
+    doctest.testmod(verbose=True)

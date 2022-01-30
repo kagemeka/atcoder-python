@@ -3,9 +3,9 @@ import typing
 
 import requests
 
-from atcoder.crawl.constant import CONTESTS_URL
-from atcoder.submission import SubmissionStatus
-from atcoder.utils import unwrap
+from atcoder.core.crawl.constant import CONTESTS_URL
+from atcoder.core.submission import SubmissionStatus
+from atcoder.core.utils import unwrap
 
 
 @dataclasses.dataclass
