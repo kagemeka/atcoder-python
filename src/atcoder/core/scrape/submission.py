@@ -25,8 +25,7 @@ async def scrape_summary(html: bytes) -> Submission:
 
     soup = await parse_html(html)
     infos = soup.table.find_all("tr")
-    status = unwrap(status_from_str(infos[6].td.text.split()[-1]))
-    summary = Submission(
+    submission = Submission(
         id=await scrape_id(html),
         datetime=datetime.datetime.strptime(
             infos[0].time.text,
@@ -37,12 +36,12 @@ async def scrape_summary(html: bytes) -> Submission:
         language=infos[3].td.text,
         score=int(infos[4].td.text),
         code_size=_strip_unit(infos[5].td.text),
-        status=status,
+        status=unwrap(status_from_str(infos[6].td.text.split()[-1])),
     )
-    if status != SubmissionStatus.CE:
-        summary.exec_time = _strip_unit(infos[7].td.text)
-        summary.memory_usage = _strip_unit(infos[8].td.text)
-    return summary
+    if submission.status != SubmissionStatus.CE:
+        submission.exec_time = _strip_unit(infos[7].td.text)
+        submission.memory_usage = _strip_unit(infos[8].td.text)
+    return submission
 
 
 async def scrape_code(html: bytes) -> str:

@@ -35,18 +35,15 @@ async def scrape_submissions(
         return None
     contest = await scrape_contest(html)
 
-    async def scrape_submission(
-        row: bs4.element.Tag,
-    ) -> typing.Optional[Submission]:
-        if row.find(class_="waiting-judge") is not None:
-            return None
+    async def scrape_submission(row: bs4.element.Tag) -> Submission:
         infos = row.find_all("td")
-        status = unwrap(status_from_str(infos[6].text.split()[-1]))
-        detail_index = 7
-        if status != SubmissionStatus.CE:
-            detail_index += 2
+        if row.find(class_="waiting-judge") is not None:
+            status = SubmissionStatus.WJ
+        else:
+            status = unwrap(status_from_str(infos[6].text.split()[-1]))
+
         submission = Submission(
-            id=infos[detail_index].a.get("href").split("/")[-1],
+            id=infos[-1].a.get("href").split("/")[-1],
             contest_id=contest.id,
             datetime=datetime.datetime.strptime(
                 infos[0].time.text,
@@ -59,17 +56,14 @@ async def scrape_submissions(
             code_size=_strip_unit(infos[5].text),
             status=status,
         )
-        if status != SubmissionStatus.CE:
+        if submission.status == SubmissionStatus.WJ:
+            return submission
+        if submission.status != SubmissionStatus.CE:
             submission.exec_time = _strip_unit(infos[7].text)
             submission.memory_usage = _strip_unit(infos[8].text)
         return submission
 
-    submissions = []
-    for row in table.tbody.find_all("tr"):
-        submission = await scrape_submission(row)
-        if submission is not None:
-            submissions.append(submission)
-    return submissions
+    return [await scrape_submission(row) for row in table.tbody.find_all("tr")]
 
 
 if __name__ == "__main__":
