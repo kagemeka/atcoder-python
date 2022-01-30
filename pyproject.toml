@@ -21,6 +21,7 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 beautifulsoup4 = "^"
 boto3 = "^"
+lxml = "^"
 pandas = "^"
 python = ">=3.9,<3.10"
 requests = "^"
@@ -38,6 +39,7 @@ isort = "^"
 mypy = "^"
 pydocstyle = "^"
 pytest = "^"
+pytest-asyncio = "^"
 
 [tool.black]
 # compatible configurations -> https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html

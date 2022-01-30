@@ -1,26 +1,11 @@
 import dataclasses
-import enum
 import typing
 
 import requests
 
-from atcoder.crawl.constant import CONTESTS_URL
-from atcoder.utils import unwrap
-
-
-class SubmissionStatus(enum.Enum):
-    AC = enum.auto()
-    WA = enum.auto()
-    RE = enum.auto()
-    TLE = enum.auto()
-    MLE = enum.auto()
-    QLE = enum.auto()
-    CE = enum.auto()
-    OLE = enum.auto()
-    IE = enum.auto()
-    WJ = enum.auto()
-    WR = enum.auto()
-    JUDGING = enum.auto()
+from atcoder.core.crawl.constant import CONTESTS_URL
+from atcoder.core.submission import SubmissionStatus
+from atcoder.core.utils import unwrap
 
 
 @dataclasses.dataclass
@@ -43,24 +28,6 @@ REQUEST_PARAMS: typing.Final[typing.Dict[str, str]] = {
 
 def to_url_param(param: str) -> typing.Optional[str]:
     return REQUEST_PARAMS.get(param)
-
-
-# async def fetch_submission_list(contest_id: str) -> typing.List[int]:
-#     contest_url = f"{CONTESTS_URL}/{contest_id}"
-#     soup = await parse_html(await fetch_page_source(contest_url))
-#     print(soup.prettify())
-
-
-# async def main() -> None:
-#     url = "https://atcoder.jp"
-#     url = "https://atcoder.jp/contests/abc236/submissions/"
-#     url = "https://atcoder.jp/contests/abc236/submissions/?page=2048"
-#     # response = requests.get(url)
-#     # soup = bs4.BeautifulSoup(response.content, "html.parser")
-#     # print(soup.prettify())
-#     # element = soup.find(class_="pagination")
-#     # print(element)
-#     await fetch_submission_list("abc236")
 
 
 def make_url_params(
