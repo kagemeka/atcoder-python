@@ -35,12 +35,12 @@ class JudgeResult:
 class Submission:
     id: int
     datetime: datetime.datetime
-    task_id: str
-    user: str
-    language: str
-    score: int
-    code_size: int
     status: SubmissionStatus
+    task_id: typing.Optional[str] = None
+    user: typing.Optional[str] = None
+    language: typing.Optional[str] = None
+    score: typing.Optional[int] = None
+    code_size: typing.Optional[int] = None
     exec_time: typing.Optional[int] = None  # ms
     memory_usage: typing.Optional[int] = None  # kB
     contest_id: typing.Optional[str] = None

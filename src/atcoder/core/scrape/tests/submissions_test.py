@@ -12,11 +12,17 @@ from atcoder.core.scrape.submissions import (
 class Test(unittest.TestCase):
     def test(self) -> None:
         async def wrap() -> None:
-            response = await crawl_submissions_page("abc236", page_id=2)
-            print(await scrape_pagination(response.content))
-            pprint.pprint(await scrape_submissions(response.content))
+            for i in range(10):
+                response = await crawl_submissions_page(
+                    "abc236", page_id=i + 1
+                )
+                print(i)
+                await scrape_pagination(response.content)
+                pprint.pprint(await scrape_submissions(response.content))
+                print(i)
+                await asyncio.sleep(1)
             response = await crawl_submissions_page("abc236", page_id=100000)
-            pprint.pprint(await scrape_submissions(response.content))
+            self.assertIsNone(await scrape_submissions(response.content))
 
         asyncio.run(wrap())
 

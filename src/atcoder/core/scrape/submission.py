@@ -25,7 +25,7 @@ async def scrape_summary(html: bytes) -> Submission:
 
     soup = await parse_html(html)
     infos = soup.table.find_all("tr")
-    status = unwrap(status_from_str(infos[6].td.text))
+    status = unwrap(status_from_str(infos[6].td.text.split()[-1]))
     summary = Submission(
         id=await scrape_id(html),
         datetime=datetime.datetime.strptime(
