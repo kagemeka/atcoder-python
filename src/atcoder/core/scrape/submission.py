@@ -27,7 +27,7 @@ async def scrape_summary(html: bytes) -> Submission:
     infos = soup.table.find_all("tr")
     submission = Submission(
         id=await scrape_id(html),
-        datetime=datetime.datetime.strptime(
+        submission_time=datetime.datetime.strptime(
             infos[0].time.text,
             "%Y-%m-%d %H:%M:%S%z",
         ),

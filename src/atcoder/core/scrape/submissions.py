@@ -45,7 +45,7 @@ async def scrape_submissions(
         submission = Submission(
             id=infos[-1].a.get("href").split("/")[-1],
             contest_id=contest.id,
-            datetime=datetime.datetime.strptime(
+            submission_time=datetime.datetime.strptime(
                 infos[0].time.text,
                 "%Y-%m-%d %H:%M:%S%z",
             ),

@@ -14,14 +14,13 @@ from atcoder.core.scrape.submissions import (
 class Test(unittest.TestCase):
     def test(self) -> None:
         async def wrap() -> None:
-            for i in tqdm.trange(5):
+            for i in tqdm.trange(1):
                 response = await crawl_submissions_page(
                     "abc236", page_id=i + 1
                 )
                 await scrape_pagination(response.content)
                 await scrape_submissions(response.content)
 
-                # await asyncio.sleep()
             response = await crawl_submissions_page("abc236", page_id=100000)
             self.assertIsNone(await scrape_submissions(response.content))
 
