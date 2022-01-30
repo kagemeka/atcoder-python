@@ -2,9 +2,10 @@ import typing
 
 import pandas as pd
 
-from atcoder.core.scrape.utils import parse_html
+from atcoder.core.scrape.utils import _strip_unit, parse_html
 from atcoder.core.submission import (
     JudgeResult,
+    SubmissionStatus,
     SubmissionSummary,
     status_from_str,
 )
@@ -19,17 +20,13 @@ async def scrape_id(html: bytes) -> int:
     return unwrap(match).group(1)
 
 
-def _strip_unit(measured_value: str) -> int:
-    # strip unit like "ms" or "kB"
-    return int(measured_value.split()[0])
-
-
 async def scrape_summary(html: bytes) -> SubmissionSummary:
     import datetime
 
     soup = await parse_html(html)
     infos = soup.table.find_all("tr")
-    return SubmissionSummary(
+    status = unwrap(status_from_str(infos[6].td.text))
+    summary = SubmissionSummary(
         datetime=datetime.datetime.strptime(
             infos[0].time.text,
             "%Y-%m-%d %H:%M:%S%z",
@@ -39,10 +36,12 @@ async def scrape_summary(html: bytes) -> SubmissionSummary:
         language=infos[3].td.text,
         score=int(infos[4].td.text),
         code_size=_strip_unit(infos[5].td.text),
-        status=unwrap(status_from_str(infos[6].td.text)),
-        exec_time=_strip_unit(infos[7].td.text),
-        memory_usage=_strip_unit(infos[8].td.text),
+        status=status,
     )
+    if status != SubmissionStatus.CE:
+        summary.exec_time = _strip_unit(infos[7].td.text)
+        summary.memory_usage = _strip_unit(infos[8].td.text)
+    return summary
 
 
 async def scrape_code(html: bytes) -> str:

@@ -40,16 +40,14 @@ class SubmissionSummary:
     score: int
     code_size: int
     status: SubmissionStatus
-    exec_time: int  # ms
-    memory_usage: int  # kB
-    code: typing.Optional[str] = None
-    judge_details: typing.Optional[JudgeResult] = None
+    exec_time: typing.Optional[int] = None  # ms
+    memory_usage: typing.Optional[int] = None  # kB
 
 
 @dataclasses.dataclass
 class Submission:
     id: int
-    contest_id: str
+    contest_id: typing.Optional[str] = None
     summary: typing.Optional[SubmissionSummary] = None
     code: typing.Optional[str] = None
     judge_details: typing.Optional[typing.List[JudgeResult]] = None
