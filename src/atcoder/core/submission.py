@@ -34,8 +34,8 @@ class JudgeResult:
 @dataclasses.dataclass
 class Submission:
     id: int
-    datetime: datetime.datetime
-    status: SubmissionStatus
+    status: typing.Optional[SubmissionStatus] = None
+    submission_time: typing.Optional[datetime.datetime] = None
     task_id: typing.Optional[str] = None
     user: typing.Optional[str] = None
     language: typing.Optional[str] = None
