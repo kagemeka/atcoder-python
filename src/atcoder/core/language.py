@@ -1,9 +1,10 @@
 import dataclasses
+import typing
 
 
 @dataclasses.dataclass
 class Language:
-    language: str
-    version: str
     id: int
-    language_name: str
+    name: str
+    version: str
+    category: typing.Optional[str] = None

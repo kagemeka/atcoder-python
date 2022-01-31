@@ -1,4 +1,5 @@
 import dataclasses
+import datetime
 import enum
 import typing
 
@@ -8,7 +9,14 @@ class ContestType(enum.Enum):
     REGULAR = enum.auto()  # orange
     GRAND = enum.auto()  # red
     HEURISTIC = enum.auto()
-    UNRATED = enum.auto()
+    MISC = enum.auto()
+
+
+class ContestColor(enum.Enum):
+    GREEN = enum.auto()
+    BLUE = enum.auto()
+    ORANGE = enum.auto()
+    RED = enum.auto()
 
 
 @dataclasses.dataclass
@@ -22,6 +30,9 @@ class ContestStatus(enum.Enum):
 @dataclasses.dataclass
 class Contest:
     id: str
-    title: typing.Optional[str] = None
-    type: typing.Optional[ContestType] = None
+    title: str
     status: typing.Optional[ContestStatus] = None
+    start_datetime: typing.Optional[datetime.datetime] = None
+    duration: typing.Optional[datetime.timedelta] = None
+    color: typing.Optional[ContestColor] = None
+    type: typing.Optional[ContestType] = None

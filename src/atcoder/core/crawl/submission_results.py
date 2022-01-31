@@ -4,22 +4,21 @@ import typing
 import requests
 
 from atcoder.core.crawl.constant import CONTESTS_URL
-from atcoder.core.submission import SubmissionStatus
 from atcoder.core.utils import unwrap
 
 
 @dataclasses.dataclass
 class RequestParams:
     task_id: typing.Optional[str] = None
-    language_name: typing.Optional[str] = None
+    language_category: typing.Optional[str] = None
     language_id: typing.Optional[int] = None
-    status: typing.Optional[SubmissionStatus] = None
+    status: typing.Optional[str] = None
     user: typing.Optional[str] = None
 
 
-REQUEST_PARAMS: typing.Final[typing.Dict[str, str]] = {
+HTML_PARAMS: typing.Final[typing.Dict[str, str]] = {
     "task_id": "f.Task",
-    "language_name": "f.LanguageName",
+    "language_category": "f.LanguageName",
     "language_id": "f.Language",
     "status": "f.Status",
     "user": "f.User",
@@ -27,7 +26,7 @@ REQUEST_PARAMS: typing.Final[typing.Dict[str, str]] = {
 
 
 def to_url_param(param: str) -> typing.Optional[str]:
-    return REQUEST_PARAMS.get(param)
+    return HTML_PARAMS.get(param)
 
 
 def make_url_params(
@@ -47,11 +46,24 @@ def make_url_params(
     return url_params
 
 
-async def crawl_submissions_page(
+async def get_submissions_page(
     contest_id: str,
     request_params: typing.Optional[RequestParams] = None,
     page_id: typing.Optional[int] = None,
 ) -> requests.models.Response:
-    url_params = make_url_params(request_params, page_id)
-    url = f"{CONTESTS_URL}/{contest_id}/submissions"
-    return requests.get(url, url_params)
+    return requests.get(
+        url=f"{CONTESTS_URL}/{contest_id}/submissions",
+        params=make_url_params(request_params, page_id),
+    )
+
+
+async def get_my_submissions_page(
+    session: requests.Session,
+    contest_id: str,
+    request_params: typing.Optional[RequestParams] = None,
+    page_id: typing.Optional[int] = None,
+) -> requests.models.Response:
+    return session.get(
+        url=f"{CONTESTS_URL}/{contest_id}/submissions/me",
+        params=make_url_params(request_params, page_id),
+    )

@@ -1,7 +1,6 @@
 import typing
 
 import bs4
-import pandas as pd
 
 from atcoder.core.scrape.contest import scrape_contest
 from atcoder.core.scrape.utils import parse_html
@@ -17,8 +16,8 @@ async def scrape_tasks(html: bytes) -> typing.List[Task]:
             id=infos[1].a.get("href").split("/")[-1],
             name=infos[1].text,
             order=infos[0].text,
-            time_limit=int(float(infos[2].text.split()[0]) * 1000),
-            memory_limit=int(infos[3].text.split()[0]) * 1000,
+            time_limit_ms=int(float(infos[2].text.split()[0]) * 1000),
+            memory_limit_kb=int(infos[3].text.split()[0]) * 1000,
             contest_id=contest.id,
         )
 
