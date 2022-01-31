@@ -12,6 +12,7 @@ from atcoder.core.scrape.utils import (
 from atcoder.core.submission_result import (
     SubmissionResult,
     SubmissionStatus,
+    SubmissionSummary,
     status_from_str,
 )
 from atcoder.core.utils import unwrap
@@ -48,35 +49,38 @@ async def scrape_submissions(
     table = soup.table
     if table is None:
         return None
-    contest = await scrape_contest(html)
 
     async def scrape_submission(row: bs4.element.Tag) -> SubmissionResult:
         infos = row.find_all("td")
+        assert len(infos) >= 8
         if row.find(class_="waiting-judge") is not None:
             status = SubmissionStatus.WJ
         else:
             status = unwrap(status_from_str(infos[6].text.split()[-1]))
-
-        submission = SubmissionResult(
-            id=infos[-1].a.get("href").split("/")[-1],
-            contest_id=contest.id,
-            submission_datetime=datetime.datetime.strptime(
+        if len(infos) == 10:
+            exec_time_ms = _strip_unit(infos[7].text)
+            memory_usage_kb = _strip_unit(infos[8].text)
+        else:
+            exec_time_ms = None
+            memory_usage_kb = None
+        summary = SubmissionSummary(
+            datetime=datetime.datetime.strptime(
                 infos[0].time.text,
                 "%Y-%m-%d %H:%M:%S%z",
             ),
             task_id=infos[1].a.get("href").split("/")[-1],
-            user=infos[2].a.get("href").split("/")[-1],
-            language=infos[3].text,
+            user_id=infos[2].a.get("href").split("/")[-1],
+            language_id=infos[3].text,
             score=int(infos[4].text),
             code_size_kb=_strip_unit(infos[5].text),
             status=status,
+            exec_time_ms=exec_time_ms,
+            memory_usage_kb=memory_usage_kb,
         )
-        if submission.status == SubmissionStatus.WJ:
-            return submission
-        if submission.status != SubmissionStatus.CE:
-            submission.exec_time_ms = _strip_unit(infos[7].text)
-            submission.memory_usage_kb = _strip_unit(infos[8].text)
-        return submission
+        return SubmissionResult(
+            id=infos[-1].a.get("href").split("/")[-1],
+            summary=summary,
+        )
 
     return [await scrape_submission(row) for row in table.tbody.find_all("tr")]
 

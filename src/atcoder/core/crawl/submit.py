@@ -5,8 +5,12 @@ import requests
 from atcoder.core.crawl.constant import CONTESTS_URL
 
 
+def make_submit_url(contest_id: str) -> str:
+    return f"{CONTESTS_URL}/{contest_id}/submit"
+
+
 @dataclasses.dataclass(frozen=True)
-class PostData:
+class PostParams:
     task_id: str
     language_id: int
     source_code: str
@@ -14,16 +18,23 @@ class PostData:
 
 
 async def post_submission(
-    contest_id: str,
-    post_data: PostData,
     session: requests.Session,
+    contest_id: str,
+    post_params: PostParams,
 ) -> requests.models.Response:
     return session.post(
-        f"{CONTESTS_URL}/{contest_id}/submit",
+        url=make_submit_url(contest_id),
         data={
-            "data.TaskScreenName": post_data.task_id,
-            "data.LanguageId": post_data.language_id,
-            "sourceCode": post_data.source_code,
-            "csrf_token": post_data.csrf_token,
+            "data.TaskScreenName": post_params.task_id,
+            "data.LanguageId": post_params.language_id,
+            "sourceCode": post_params.source_code,
+            "csrf_token": post_params.csrf_token,
         },
     )
+
+
+async def get_submit_page(
+    session: requests.Session,
+    contest_id: str,
+) -> requests.models.Response:
+    return session.get(make_submit_url(contest_id))

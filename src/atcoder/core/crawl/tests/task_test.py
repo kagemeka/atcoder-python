@@ -1,13 +1,16 @@
 import asyncio
 import unittest
 
-from atcoder.core.crawl.contest import get_contest_page
+from atcoder.core.crawl.task import get_task_page
 
 
 class Test(unittest.TestCase):
     def test(self) -> None:
         async def wrap() -> None:
-            response = await get_contest_page(contest_id="abc236")
+            response = await get_task_page(
+                contest_id="abc236",
+                task_id="abc236_a",
+            )
             self.assertEqual(response.status_code, 200)
 
         asyncio.run(wrap())

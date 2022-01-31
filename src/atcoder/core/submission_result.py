@@ -23,27 +23,42 @@ def status_from_str(status: str) -> typing.Optional[SubmissionStatus]:
     return SubmissionStatus.__members__.get(status.upper())
 
 
-@dataclasses.dataclass
+def status_to_string(status: SubmissionStatus) -> str:
+    if status == SubmissionStatus.JUDGING:
+        return "Judging"
+    else:
+        return status.name
+
+
+@dataclasses.dataclass(frozen=True)
 class JudgeResult:
     case_name: str
     status: SubmissionStatus
-    exec_time: int
-    memory_usage: int
+    exec_time_ms: int
+    memory_usage_kb: int
+
+
+@dataclasses.dataclass(frozen=True)
+class SubmissionSummary:
+    datetime: datetime.datetime
+    task_id: str
+    user_id: str
+    language_id: int
+    score: int
+    code_size_kb: int
+    status: SubmissionStatus
+    exec_time_ms: typing.Optional[int] = None
+    memory_usage_kb: typing.Optional[int] = None
+
+
+@dataclasses.dataclass(frozen=True)
+class SubmissionDetails:
+    code: str
+    judge_results: typing.List[JudgeResult]
 
 
 @dataclasses.dataclass
 class SubmissionResult:
     id: int
-    status: typing.Optional[SubmissionStatus] = None
-    submission_datetime: typing.Optional[datetime.datetime] = None
-    task_id: typing.Optional[str] = None
-    user: typing.Optional[str] = None
-    language: typing.Optional[str] = None
-    score: typing.Optional[int] = None
-    code_size_kb: typing.Optional[int] = None
-    exec_time_ms: typing.Optional[int] = None  # ms
-    memory_usage_kb: typing.Optional[int] = None  # kB
-    contest_id: typing.Optional[str] = None
-    language_id: typing.Optional[int] = None  # 4047 for PyPy3
-    code: typing.Optional[str] = None
-    judge_details: typing.Optional[typing.List[JudgeResult]] = None
+    summary: SubmissionSummary
+    details: typing.Optional[SubmissionDetails] = None
