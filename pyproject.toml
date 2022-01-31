@@ -30,7 +30,6 @@ tqdm = "^"
 
 [tool.poetry.extras]
 
-
 [tool.poetry.dev-dependencies]
 autopep8 = "^"
 black = "^"

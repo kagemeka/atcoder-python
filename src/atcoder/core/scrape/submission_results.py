@@ -3,7 +3,6 @@ import typing
 
 import bs4
 
-from atcoder.core.scrape.contest import scrape_contest
 from atcoder.core.scrape.utils import (
     _strip_unit,
     parse_html,

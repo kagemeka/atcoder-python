@@ -1,8 +1,6 @@
 import asyncio
 import unittest
 
-import pytest
-
 from atcoder.core.crawl.submission_results import (
     RequestParams,
     get_submissions_page,

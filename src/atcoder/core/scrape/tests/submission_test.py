@@ -1,5 +1,4 @@
 import asyncio
-import pprint
 import unittest
 
 from atcoder.core.crawl.submission_result import get_submission_page
