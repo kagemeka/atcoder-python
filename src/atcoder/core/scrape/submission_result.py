@@ -3,9 +3,9 @@ import typing
 import pandas as pd
 
 from atcoder.core.scrape.utils import _strip_unit, parse_html
-from atcoder.core.submission import (
+from atcoder.core.submission_result import (
     JudgeResult,
-    Submission,
+    SubmissionResult,
     SubmissionStatus,
     status_from_str,
 )
@@ -20,12 +20,12 @@ async def scrape_id(html: bytes) -> int:
     return unwrap(match).group(1)
 
 
-async def scrape_summary(html: bytes) -> Submission:
+async def scrape_submission_result(html: bytes) -> SubmissionResult:
     import datetime
 
     soup = await parse_html(html)
     infos = soup.table.find_all("tr")
-    submission = Submission(
+    submission = SubmissionResult(
         id=await scrape_id(html),
         submission_datetime=datetime.datetime.strptime(
             infos[0].time.text,

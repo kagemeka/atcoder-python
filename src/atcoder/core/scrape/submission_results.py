@@ -2,16 +2,31 @@ import datetime
 import typing
 
 import bs4
-import pandas as pd
 
 from atcoder.core.scrape.contest import scrape_contest
-from atcoder.core.scrape.utils import _strip_unit, parse_html
-from atcoder.core.submission import (
-    Submission,
+from atcoder.core.scrape.utils import (
+    _strip_unit,
+    parse_html,
+    scrape_html_options,
+)
+from atcoder.core.submission_result import (
+    SubmissionResult,
     SubmissionStatus,
     status_from_str,
 )
 from atcoder.core.utils import unwrap
+
+
+async def scrape_task_ids(html: bytes) -> typing.List[str]:
+    return unwrap(await scrape_html_options(html, "select-task"))
+
+
+async def scrape_language_categories(html: bytes) -> typing.List[str]:
+    return unwrap(await scrape_html_options(html, "select-language"))
+
+
+async def scrape_submission_statuses(html: bytes) -> typing.List[str]:
+    return unwrap(await scrape_html_options(html, "select-status"))
 
 
 async def scrape_pagination(
@@ -28,21 +43,21 @@ async def scrape_pagination(
 
 async def scrape_submissions(
     html: bytes,
-) -> typing.Optional[typing.List[Submission]]:
+) -> typing.Optional[typing.List[SubmissionResult]]:
     soup = await parse_html(html)
     table = soup.table
     if table is None:
         return None
     contest = await scrape_contest(html)
 
-    async def scrape_submission(row: bs4.element.Tag) -> Submission:
+    async def scrape_submission(row: bs4.element.Tag) -> SubmissionResult:
         infos = row.find_all("td")
         if row.find(class_="waiting-judge") is not None:
             status = SubmissionStatus.WJ
         else:
             status = unwrap(status_from_str(infos[6].text.split()[-1]))
 
-        submission = Submission(
+        submission = SubmissionResult(
             id=infos[-1].a.get("href").split("/")[-1],
             contest_id=contest.id,
             submission_datetime=datetime.datetime.strptime(

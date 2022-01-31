@@ -3,7 +3,7 @@ import requests
 from atcoder.core.crawl.constant import CONTESTS_URL
 
 
-async def crawl_task(
+async def get_task_page(
     contest_id: str,
     task_id: str,
 ) -> requests.models.Response:

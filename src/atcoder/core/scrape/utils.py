@@ -1,3 +1,5 @@
+import typing
+
 import bs4
 
 
@@ -8,3 +10,19 @@ async def parse_html(html_text: bytes) -> bs4.BeautifulSoup:
 def _strip_unit(measured_value: str) -> int:
     # strip unit like "ms" or "kB"
     return int(measured_value.split()[0])
+
+
+async def scrape_html_options(
+    html: bytes,
+    id_in_html: str,
+) -> typing.Optional[typing.List[str]]:
+    soup = await parse_html(html)
+    section = soup.find("select", id=id_in_html)
+    if section is None:
+        return None
+    return list(
+        map(
+            lambda element: element.get("value"),
+            section.find_all("option")[1:],
+        )
+    )

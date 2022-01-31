@@ -32,7 +32,7 @@ class JudgeResult:
 
 
 @dataclasses.dataclass
-class Submission:
+class SubmissionResult:
     id: int
     status: typing.Optional[SubmissionStatus] = None
     submission_datetime: typing.Optional[datetime.datetime] = None

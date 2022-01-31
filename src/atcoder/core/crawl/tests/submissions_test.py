@@ -3,9 +3,9 @@ import unittest
 
 import pytest
 
-from atcoder.core.crawl.submissions import (
+from atcoder.core.crawl.submission_results import (
     RequestParams,
-    crawl_submissions_page,
+    get_submissions_page,
 )
 
 
@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     def test(self) -> None:
         async def wrap() -> None:
             params = RequestParams(user="Kagemeka")
-            response = await crawl_submissions_page(
+            response = await get_submissions_page(
                 "abc236",
                 params,
                 page_id=0,
