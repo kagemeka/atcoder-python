@@ -23,7 +23,7 @@ beautifulsoup4 = "^"
 boto3 = "^"
 lxml = "^"
 pandas = "^"
-python = ">=3.8,<=3.11"
+python = ">=3.8,<3.11"
 requests = "^"
 selenium = "^"
 tqdm = "^"
@@ -40,6 +40,7 @@ mypy = "^"
 pydocstyle = "^"
 pytest = "^"
 pytest-asyncio = "^"
+types-requests = "^"
 
 [tool.black]
 # compatible configurations -> https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html
@@ -48,8 +49,9 @@ target-version = ['py38', 'py39']
 
 [tool.flake8]
 count = 'true' # have not adaped to boolean value yet.
-exclude = "src/dsalgo/numba" 
+exclude = "" 
 ignore = 'E203' 
+max_line_length = 79 
 show-source = 'true' 
 statistics = 'true' 
 
@@ -61,8 +63,8 @@ profile = "black"
 line_length = 79
 
 [tool.mypy]
-ignore_missing_imports = false
+ignore_missing_imports = true
 strict_optional = true
 
-[tool.pytest]
+[tool.pytest.ini_options]
 cache_dir = "/tmp/.pytest_cache"
