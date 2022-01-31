@@ -25,11 +25,15 @@ async def _scrape_contest(row: bs4.element.Tag) -> Contest:
     )
 
 
-async def scrape_running_contests(html: bytes) -> typing.List[Contest]:
+async def scrape_running_contests(
+    html: bytes,
+) -> typing.Optional[typing.List[Contest]]:
     soup = await parse_html(html)
+    section = soup.find(id="contest-table-action")
+    if section is None:
+        return None
     contests = []
-    table = soup.find(id="contest-table-action").table
-    for row in table.tbody.find_all("tr"):
+    for row in section.table.tbody.find_all("tr"):
         contest = await _scrape_contest(row)
         contest.status = ContestStatus.RUNNING
         contests.append(contest)
@@ -55,11 +59,15 @@ async def scrape_permanent_contests(html: bytes) -> typing.List[Contest]:
     return contests
 
 
-async def scrape_upcoming_contests(html: bytes) -> typing.List[Contest]:
+async def scrape_upcoming_contests(
+    html: bytes,
+) -> typing.Optional[typing.List[Contest]]:
     soup = await parse_html(html)
+    section = soup.find(id="contest-table-upcoming")
+    if section is None:
+        return None
     contests = []
-    table = soup.find(id="contest-table-upcoming").table
-    for row in table.tbody.find_all("tr"):
+    for row in section.table.tbody.find_all("tr"):
         contest = await _scrape_contest(row)
         contest.status = ContestStatus.UPCOMING
         contests.append(contest)

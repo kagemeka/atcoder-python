@@ -19,7 +19,7 @@ async def scrape_id(html: bytes) -> int:
 
     soup = await parse_html(html)
     match = re.match(r"^.*\#(\d+).*$", soup.find(class_="h2").text)
-    return unwrap(match).group(1)
+    return int(unwrap(match).group(1))
 
 
 async def scrape_summary(html: bytes) -> SubmissionSummary:
@@ -64,7 +64,7 @@ async def scrape_submission_result(html: bytes) -> SubmissionResult:
 
 async def scrape_code(html: bytes) -> str:
     soup = await parse_html(html)
-    return soup.find(id="submission-code").text
+    return typing.cast(str, soup.find(id="submission-code").text)
 
 
 async def scrape_judge_results(html: bytes) -> typing.List[JudgeResult]:

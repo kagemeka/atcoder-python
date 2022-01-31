@@ -22,7 +22,10 @@ async def scrape_html_options(
         return None
     return list(
         map(
-            lambda element: element.get("value"),
+            typing.cast(
+                typing.Callable[[bs4.element.Tag], str],
+                lambda element: element.get("value"),
+            ),
             section.find_all("option")[1:],
         )
     )
