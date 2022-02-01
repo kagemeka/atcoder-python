@@ -33,3 +33,17 @@ async def _login_with_new_session() -> requests.Session:
     )
 
     return session
+
+
+ABC001_1_CODE_PYTHON = """
+# API Code Submission Test.
+import typing
+
+def main() -> None:
+    h1 = int(input())
+    h2 = int(input())
+    print(h1 - h2)
+
+if __name__ == '__main__':
+    main()
+"""

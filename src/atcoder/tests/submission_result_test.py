@@ -41,7 +41,7 @@ class Test(unittest.TestCase):
 
         asyncio.run(wrap())
 
-    def test(self) -> None:
+    def test_details(self) -> None:
         async def wrap() -> None:
             submission_id = 106887
             contest_id = "abc001"
@@ -50,6 +50,13 @@ class Test(unittest.TestCase):
                 submission_id,
             )
             print(submission_result)
+
+        asyncio.run(wrap())
+
+    def test_page_count(self) -> None:
+        async def wrap() -> None:
+            page_count = await fetch_submission_results_page_count("abc001")
+            print(page_count)
 
         asyncio.run(wrap())
 
