@@ -1,4 +1,6 @@
 import dataclasses
+import http.client
+import logging
 
 import requests
 
@@ -9,6 +11,8 @@ from atcoder.core.crawl.login import (
     post_login,
 )
 from atcoder.core.scrape.login import scrape_csrf_token
+
+logger = logging.getLogger(__name__)
 
 
 async def _login_with_new_session() -> requests.Session:
@@ -23,4 +27,9 @@ async def _login_with_new_session() -> requests.Session:
             csrf_token=token,
         ),
     )
+    logger.debug(
+        f"{response.status_code}"
+        f" {http.client.responses.get(response.status_code)}"
+    )
+
     return session

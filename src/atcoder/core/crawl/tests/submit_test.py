@@ -13,7 +13,7 @@ from atcoder.core.scrape.submit import scrape_csrf_token
 
 ABC001_1_CODE_PYTHON = """
 # API Code Submission Test.
-import typing 
+import typing
 
 def main() -> None:
     h1 = int(input())
@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
                 csrf_token=token,
             )
             response = await post_submission(session, "abc001", params)
-            print(response.status_code)
+            session.close()
 
         asyncio.run(wrap())
 
