@@ -7,8 +7,10 @@ from atcoder.core.crawl.constant import LOGIN_URL
 
 
 async def get_login_page(
-    session: requests.Session,
+    session: typing.Optional[requests.Session] = None,
 ) -> requests.models.Response:
+    if session is None:
+        return requests.get(LOGIN_URL)
     return session.get(LOGIN_URL)
 
 

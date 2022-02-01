@@ -1,5 +1,7 @@
 import dataclasses
 
+import requests
+
 
 @dataclasses.dataclass(frozen=True)
 class LoginCredentials:
@@ -14,6 +16,11 @@ def input_login_credentials() -> LoginCredentials:
     )
 
 
-import http.client
+def is_logged_in(session: requests.Session) -> bool:
+    from atcoder.core.crawl.constant import CONTESTS_URL
 
-print(http.client.responses.get(200))
+    response = session.get(
+        url=f"{CONTESTS_URL}/abc001/submit",
+        allow_redirects=False,
+    )
+    return response.status_code == 200
