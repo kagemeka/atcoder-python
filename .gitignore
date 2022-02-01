@@ -1,8 +1,11 @@
-/dist
-.mypy_cache
+/dist/
+.mypy_cache/
 __pycache__
 .history
 .vscode
+.pytest_cache
+/html/
 cookies.json
+login_credentials.json
 !.gitkeep
 

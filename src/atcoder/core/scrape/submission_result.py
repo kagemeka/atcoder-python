@@ -27,7 +27,7 @@ async def scrape_summary(html: bytes) -> SubmissionSummary:
 
     soup = await parse_html(html)
     infos = soup.table.find_all("tr")
-    assert len(infos) >= 8
+    assert len(infos) >= 7
     if soup.table.find(class_="waiting-judge") is not None:
         status = SubmissionStatus.WJ
     else:
@@ -44,8 +44,8 @@ async def scrape_summary(html: bytes) -> SubmissionSummary:
             "%Y-%m-%d %H:%M:%S%z",
         ),
         task_id=infos[1].a.get("href").split("/")[-1],
-        user_id=infos[2].a.get("href").split("/")[-1],
-        language_id=infos[3].td.text,
+        username=infos[2].a.get("href").split("/")[-1],
+        language_string=infos[3].td.text,
         score=int(infos[4].td.text),
         code_size_kb=_strip_unit(infos[5].td.text),
         status=status,
@@ -67,8 +67,13 @@ async def scrape_code(html: bytes) -> str:
     return typing.cast(str, soup.find(id="submission-code").text)
 
 
-async def scrape_judge_results(html: bytes) -> typing.List[JudgeResult]:
-    table = pd.read_html(html)[-1]
+async def scrape_judge_results(
+    html: bytes,
+) -> typing.Optional[typing.List[JudgeResult]]:
+    tables = pd.read_html(html)
+    if len(tables) == 1:  # compile error, and no judge results.
+        return None
+    table = tables[-1]
     table.rename(
         columns={
             "Case Name": "case_name",

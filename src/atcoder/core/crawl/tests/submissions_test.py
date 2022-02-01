@@ -2,7 +2,7 @@ import asyncio
 import unittest
 
 from atcoder.core.crawl.submission_results import (
-    RequestParams,
+    SubmissionsSearchParams,
     get_submissions_page,
 )
 
@@ -10,7 +10,7 @@ from atcoder.core.crawl.submission_results import (
 class Test(unittest.TestCase):
     def test(self) -> None:
         async def wrap() -> None:
-            params = RequestParams(user="Kagemeka")
+            params = SubmissionsSearchParams(username="Kagemeka")
             response = await get_submissions_page(
                 "abc236",
                 params,
