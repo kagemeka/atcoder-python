@@ -4,9 +4,9 @@ import typing
 import bs4
 
 from atcoder.core.scrape.utils import (
+    _scrape_html_options,
     _strip_unit,
     parse_html,
-    scrape_html_options,
 )
 from atcoder.core.submission_result import (
     SubmissionResult,
@@ -18,15 +18,15 @@ from atcoder.core.utils import unwrap
 
 
 async def scrape_task_ids(html: bytes) -> typing.List[str]:
-    return unwrap(await scrape_html_options(html, "select-task"))
+    return unwrap(await _scrape_html_options(html, "select-task"))
 
 
 async def scrape_language_categories(html: bytes) -> typing.List[str]:
-    return unwrap(await scrape_html_options(html, "select-language"))
+    return unwrap(await _scrape_html_options(html, "select-language"))
 
 
 async def scrape_submission_statuses(html: bytes) -> typing.List[str]:
-    return unwrap(await scrape_html_options(html, "select-status"))
+    return unwrap(await _scrape_html_options(html, "select-status"))
 
 
 async def scrape_pagination(

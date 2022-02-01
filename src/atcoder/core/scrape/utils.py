@@ -12,7 +12,7 @@ def _strip_unit(measured_value: str) -> int:
     return int(measured_value.split()[0])
 
 
-async def scrape_html_options(
+async def _scrape_html_options(
     html: bytes,
     id_in_html: str,
 ) -> typing.Optional[typing.List[str]]:
