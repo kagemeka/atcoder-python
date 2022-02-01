@@ -9,8 +9,15 @@ def make_submit_url(contest_id: str) -> str:
     return f"{CONTESTS_URL}/{contest_id}/submit"
 
 
+async def get_submit_page(
+    session: requests.Session,
+    contest_id: str,
+) -> requests.models.Response:
+    return session.get(make_submit_url(contest_id))
+
+
 @dataclasses.dataclass(frozen=True)
-class PostParams:
+class SubmitPostParams:
     task_id: str
     language_id: int
     source_code: str
@@ -20,7 +27,7 @@ class PostParams:
 async def post_submission(
     session: requests.Session,
     contest_id: str,
-    post_params: PostParams,
+    post_params: SubmitPostParams,
 ) -> requests.models.Response:
     return session.post(
         url=make_submit_url(contest_id),
@@ -31,10 +38,3 @@ async def post_submission(
             "csrf_token": post_params.csrf_token,
         },
     )
-
-
-async def get_submit_page(
-    session: requests.Session,
-    contest_id: str,
-) -> requests.models.Response:
-    return session.get(make_submit_url(contest_id))
