@@ -2,7 +2,7 @@ import dataclasses
 import json
 import os
 import typing
-
+import getpass
 import requests
 
 
@@ -15,7 +15,7 @@ class LoginCredentials:
 def input_login_credentials() -> LoginCredentials:
     return LoginCredentials(
         username=input("username: "),
-        password=input("password: "),
+        password=getpass.getpass("password: "),
     )
 
 

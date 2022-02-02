@@ -16,7 +16,7 @@ name = "atcoder-api"
 packages = [{include = "atcoder", from = "src"}]
 readme = "README.md"
 repository = "https://github.com/competitive-programming-helper/atcoder-api"
-version = "0.1.2"
+version = "0.2.0"
 
 [tool.poetry.dependencies]
 beautifulsoup4 = "^"
