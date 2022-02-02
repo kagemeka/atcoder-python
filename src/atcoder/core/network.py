@@ -6,6 +6,8 @@ import typing
 import requests
 import requests.cookies
 
+from atcoder.core.utils import prepare_directory
+
 
 async def _cookies_to_dict(
     cookiejar: requests.cookies.RequestsCookieJar,
@@ -24,7 +26,7 @@ async def save_cookies(
     cookies: requests.cookies.RequestsCookieJar,
     json_filepath: str,
 ) -> None:
-    os.makedirs(os.path.dirname(json_filepath), exist_ok=True)
+    prepare_directory(json_filepath)
     with open(file=json_filepath, mode="w") as f:
         json.dump(await _cookies_to_dict(cookies), f)
 

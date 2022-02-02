@@ -42,8 +42,8 @@ class JudgeResult:
 class SubmissionSummary:
     datetime: datetime.datetime
     task_id: str
-    user_id: str
-    language_id: int
+    username: str
+    language_string: str
     score: int
     code_size_kb: int
     status: SubmissionStatus
@@ -54,7 +54,7 @@ class SubmissionSummary:
 @dataclasses.dataclass(frozen=True)
 class SubmissionDetails:
     code: str
-    judge_results: typing.List[JudgeResult]
+    judge_results: typing.Optional[typing.List[JudgeResult]] = None
 
 
 @dataclasses.dataclass

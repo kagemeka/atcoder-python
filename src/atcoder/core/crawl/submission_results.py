@@ -8,12 +8,12 @@ from atcoder.core.utils import unwrap
 
 
 @dataclasses.dataclass
-class RequestParams:
+class SubmissionsSearchParams:
     task_id: typing.Optional[str] = None
     language_category: typing.Optional[str] = None
     language_id: typing.Optional[int] = None
     status: typing.Optional[str] = None
-    user: typing.Optional[str] = None
+    username: typing.Optional[str] = None
 
 
 HTML_PARAMS: typing.Final[typing.Dict[str, str]] = {
@@ -21,7 +21,7 @@ HTML_PARAMS: typing.Final[typing.Dict[str, str]] = {
     "language_category": "f.LanguageName",
     "language_id": "f.Language",
     "status": "f.Status",
-    "user": "f.User",
+    "username": "f.User",
 }
 
 
@@ -30,12 +30,12 @@ def to_url_param(param: str) -> typing.Optional[str]:
 
 
 def make_url_params(
-    request_params: typing.Optional[RequestParams] = None,
+    search_params: typing.Optional[SubmissionsSearchParams] = None,
     page_id: typing.Optional[int] = None,
 ) -> typing.Dict[str, typing.Union[str, int]]:
     url_params: typing.Dict[str, typing.Union[str, int]] = dict()
-    if request_params is not None:
-        for param, value in dataclasses.asdict(request_params).items():
+    if search_params is not None:
+        for param, value in dataclasses.asdict(search_params).items():
             if value is None:
                 continue
             param = unwrap(to_url_param(param))
@@ -48,22 +48,22 @@ def make_url_params(
 
 async def get_submissions_page(
     contest_id: str,
-    request_params: typing.Optional[RequestParams] = None,
+    search_params: typing.Optional[SubmissionsSearchParams] = None,
     page_id: typing.Optional[int] = None,
 ) -> requests.models.Response:
     return requests.get(
         url=f"{CONTESTS_URL}/{contest_id}/submissions",
-        params=make_url_params(request_params, page_id),
+        params=make_url_params(search_params, page_id),
     )
 
 
 async def get_my_submissions_page(
     session: requests.Session,
     contest_id: str,
-    request_params: typing.Optional[RequestParams] = None,
+    search_params: typing.Optional[SubmissionsSearchParams] = None,
     page_id: typing.Optional[int] = None,
 ) -> requests.models.Response:
     return session.get(
         url=f"{CONTESTS_URL}/{contest_id}/submissions/me",
-        params=make_url_params(request_params, page_id),
+        params=make_url_params(search_params, page_id),
     )
