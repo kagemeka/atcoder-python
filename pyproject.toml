@@ -6,9 +6,9 @@ requires = ["poetry-core>=1.0.0"]
 authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 classifiers = []
 description = "AtCoder API."
-documentation = "https://github.com/competitive-programming-helper/atcoder-api"
+documentation = "https://atcoder-api-python.readthedocs.io"
 exclude = ["./**/*_test.py", "./**/test_*.py", "./**/tests/"]
-homepage = "https://github.com/competitive-programming-helper/atcoder-api"
+homepage = "https://atcoder-api-python.readthedocs.io"
 keywords = ["atcoder", "api"]
 license = "MIT"
 maintainers = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
