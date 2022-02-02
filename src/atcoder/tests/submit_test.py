@@ -5,11 +5,10 @@ import unittest
 import pytest
 
 from atcoder.core._test_utils import (
-    _login_with_new_session,
     ABC001_1_CODE_PYTHON,
+    _login_with_new_session,
 )
-
-from atcoder.submit import submit_task, fetch_languages
+from atcoder.submit import fetch_languages, submit_task
 
 
 @pytest.mark.skip

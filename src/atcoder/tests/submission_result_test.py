@@ -14,8 +14,8 @@ from atcoder.submission_result import (
 )
 
 
-@pytest.mark.skip
 class Test(unittest.TestCase):
+    @pytest.mark.skip
     def test_all_my_submission_results(self) -> None:
         async def wrap() -> None:
             session = await _login_with_new_session()

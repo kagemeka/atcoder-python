@@ -4,8 +4,8 @@ import unittest
 import pytest
 
 from atcoder.core._test_utils import (
-    _login_with_new_session,
     ABC001_1_CODE_PYTHON,
+    _login_with_new_session,
 )
 from atcoder.core.crawl.submit import (
     SubmitPostParams,
