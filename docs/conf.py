@@ -12,7 +12,7 @@
 #
 import os
 import sys
-sys.path.insert(0, '/root/atcoder-api/src')
+sys.path.insert(0, './../src')
 
 
 # -- Project information -----------------------------------------------------

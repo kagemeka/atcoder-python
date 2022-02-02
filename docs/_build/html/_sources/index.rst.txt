@@ -7,7 +7,7 @@ Welcome to atcoder-api's documentation!
 =======================================
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 100
    :caption: Contents:
 
    atcoder
