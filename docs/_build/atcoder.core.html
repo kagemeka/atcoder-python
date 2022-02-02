@@ -1,0 +1,691 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>atcoder.core package &#8212; atcoder-api v0.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="atcoder.core.crawl package" href="atcoder.core.crawl.html" />
+    <link rel="prev" title="atcoder package" href="atcoder.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="atcoder.core.crawl.html" title="atcoder.core.crawl package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="atcoder.html" title="atcoder package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">atcoder-api v0.2.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="atcoder.html" accesskey="U">atcoder package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">atcoder.core package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="atcoder-core-package">
+<h1>atcoder.core package<a class="headerlink" href="#atcoder-core-package" title="Permalink to this headline">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="atcoder.core.crawl.html">atcoder.core.crawl package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atcoder.core.crawl.tests.html">atcoder.core.crawl.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#module-atcoder.core.crawl.tests.contest_test">atcoder.core.crawl.tests.contest_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#module-atcoder.core.crawl.tests.contests_archive_test">atcoder.core.crawl.tests.contests_archive_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#module-atcoder.core.crawl.tests.contests_test">atcoder.core.crawl.tests.contests_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#module-atcoder.core.crawl.tests.login_test">atcoder.core.crawl.tests.login_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#module-atcoder.core.crawl.tests.submission_test">atcoder.core.crawl.tests.submission_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#module-atcoder.core.crawl.tests.submissions_test">atcoder.core.crawl.tests.submissions_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#module-atcoder.core.crawl.tests.submit_test">atcoder.core.crawl.tests.submit_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#module-atcoder.core.crawl.tests.task_test">atcoder.core.crawl.tests.task_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#module-atcoder.core.crawl.tests.tasks_test">atcoder.core.crawl.tests.tasks_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atcoder.core.crawl.tests.html#module-atcoder.core.crawl.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.constant">atcoder.core.crawl.constant module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.contest">atcoder.core.crawl.contest module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.contests">atcoder.core.crawl.contests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.contests_archive">atcoder.core.crawl.contests_archive module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.editorial">atcoder.core.crawl.editorial module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.home">atcoder.core.crawl.home module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.login">atcoder.core.crawl.login module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.ranking">atcoder.core.crawl.ranking module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.score">atcoder.core.crawl.score module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.standings">atcoder.core.crawl.standings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.submission_result">atcoder.core.crawl.submission_result module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.submission_results">atcoder.core.crawl.submission_results module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.submit">atcoder.core.crawl.submit module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.task">atcoder.core.crawl.task module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.tasks">atcoder.core.crawl.tasks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.top">atcoder.core.crawl.top module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.user">atcoder.core.crawl.user module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl.utils">atcoder.core.crawl.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.crawl.html#module-atcoder.core.crawl">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="atcoder.core.scrape.html">atcoder.core.scrape package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.contest">atcoder.core.scrape.contest module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.contests">atcoder.core.scrape.contests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.contests_archive">atcoder.core.scrape.contests_archive module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.form">atcoder.core.scrape.form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.login">atcoder.core.scrape.login module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.ranking">atcoder.core.scrape.ranking module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.score">atcoder.core.scrape.score module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.submission_result">atcoder.core.scrape.submission_result module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.submission_results">atcoder.core.scrape.submission_results module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.submit">atcoder.core.scrape.submit module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.task">atcoder.core.scrape.task module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.tasks">atcoder.core.scrape.tasks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.user">atcoder.core.scrape.user module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape.utils">atcoder.core.scrape.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.scrape.html#module-atcoder.core.scrape">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="atcoder.core.tests.html">atcoder.core.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.tests.html#module-atcoder.core.tests.network_test">atcoder.core.tests.network_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcoder.core.tests.html#module-atcoder.core.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-atcoder.core.auth">
+<span id="atcoder-core-auth-module"></span><h2>atcoder.core.auth module<a class="headerlink" href="#module-atcoder.core.auth" title="Permalink to this headline">¶</a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="atcoder.core.auth.InvalidSessionError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.auth.</span></span><span class="sig-name descname"><span class="pre">InvalidSessionError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/auth.html#InvalidSessionError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.auth.InvalidSessionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.auth.InvalidSessionError.DEFAULT_MESSAGE">
+<span class="sig-name descname"><span class="pre">DEFAULT_MESSAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Your</span> <span class="pre">login</span> <span class="pre">session</span> <span class="pre">is</span> <span class="pre">invalid.</span> <span class="pre">please</span> <span class="pre">relogin.'</span></em><a class="headerlink" href="#atcoder.core.auth.InvalidSessionError.DEFAULT_MESSAGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.auth.LoginCredentials">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.auth.</span></span><span class="sig-name descname"><span class="pre">LoginCredentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/auth.html#LoginCredentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.auth.LoginCredentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.auth.LoginCredentials.password">
+<span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.auth.LoginCredentials.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.auth.LoginCredentials.username">
+<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.auth.LoginCredentials.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.auth.credentials_from_json_file">
+<span class="sig-prename descclassname"><span class="pre">atcoder.core.auth.</span></span><span class="sig-name descname"><span class="pre">credentials_from_json_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#atcoder.core.auth.LoginCredentials" title="atcoder.core.auth.LoginCredentials"><span class="pre">atcoder.core.auth.LoginCredentials</span></a></span></span><a class="reference internal" href="_modules/atcoder/core/auth.html#credentials_from_json_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.auth.credentials_from_json_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.auth.credentials_from_yaml_file">
+<span class="sig-prename descclassname"><span class="pre">atcoder.core.auth.</span></span><span class="sig-name descname"><span class="pre">credentials_from_yaml_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#atcoder.core.auth.LoginCredentials" title="atcoder.core.auth.LoginCredentials"><span class="pre">atcoder.core.auth.LoginCredentials</span></a></span></span><a class="reference internal" href="_modules/atcoder/core/auth.html#credentials_from_yaml_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.auth.credentials_from_yaml_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.auth.input_login_credentials">
+<span class="sig-prename descclassname"><span class="pre">atcoder.core.auth.</span></span><span class="sig-name descname"><span class="pre">input_login_credentials</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#atcoder.core.auth.LoginCredentials" title="atcoder.core.auth.LoginCredentials"><span class="pre">atcoder.core.auth.LoginCredentials</span></a></span></span><a class="reference internal" href="_modules/atcoder/core/auth.html#input_login_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.auth.input_login_credentials" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.auth.is_logged_in">
+<span class="sig-prename descclassname"><span class="pre">atcoder.core.auth.</span></span><span class="sig-name descname"><span class="pre">is_logged_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">requests.sessions.Session</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/atcoder/core/auth.html#is_logged_in"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.auth.is_logged_in" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-atcoder.core.contest">
+<span id="atcoder-core-contest-module"></span><h2>atcoder.core.contest module<a class="headerlink" href="#module-atcoder.core.contest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.contest.Contest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.contest.</span></span><span class="sig-name descname"><span class="pre">Contest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.contest.ContestStatus" title="atcoder.core.contest.ContestStatus"><span class="pre">atcoder.core.contest.ContestStatus</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_datetime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime.datetime</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime.timedelta</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.contest.ContestColor" title="atcoder.core.contest.ContestColor"><span class="pre">atcoder.core.contest.ContestColor</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.contest.ContestType" title="atcoder.core.contest.ContestType"><span class="pre">atcoder.core.contest.ContestType</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/contest.html#Contest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.contest.Contest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.Contest.color">
+<span class="sig-name descname"><span class="pre">color</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.contest.ContestColor" title="atcoder.core.contest.ContestColor"><span class="pre">atcoder.core.contest.ContestColor</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.contest.Contest.color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.Contest.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime.timedelta</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.contest.Contest.duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.Contest.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.contest.Contest.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.Contest.start_datetime">
+<span class="sig-name descname"><span class="pre">start_datetime</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime.datetime</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.contest.Contest.start_datetime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.Contest.status">
+<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.contest.ContestStatus" title="atcoder.core.contest.ContestStatus"><span class="pre">atcoder.core.contest.ContestStatus</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.contest.Contest.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.Contest.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.contest.Contest.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.Contest.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.contest.ContestType" title="atcoder.core.contest.ContestType"><span class="pre">atcoder.core.contest.ContestType</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.contest.Contest.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestColor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.contest.</span></span><span class="sig-name descname"><span class="pre">ContestColor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/contest.html#ContestColor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.contest.ContestColor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestColor.BLUE">
+<span class="sig-name descname"><span class="pre">BLUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#atcoder.core.contest.ContestColor.BLUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestColor.GREEN">
+<span class="sig-name descname"><span class="pre">GREEN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#atcoder.core.contest.ContestColor.GREEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestColor.ORANGE">
+<span class="sig-name descname"><span class="pre">ORANGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#atcoder.core.contest.ContestColor.ORANGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestColor.RED">
+<span class="sig-name descname"><span class="pre">RED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#atcoder.core.contest.ContestColor.RED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.contest.</span></span><span class="sig-name descname"><span class="pre">ContestStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/contest.html#ContestStatus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.contest.ContestStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestStatus.FINISHED">
+<span class="sig-name descname"><span class="pre">FINISHED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#atcoder.core.contest.ContestStatus.FINISHED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestStatus.PERMANENT">
+<span class="sig-name descname"><span class="pre">PERMANENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#atcoder.core.contest.ContestStatus.PERMANENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestStatus.RUNNING">
+<span class="sig-name descname"><span class="pre">RUNNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#atcoder.core.contest.ContestStatus.RUNNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestStatus.UPCOMING">
+<span class="sig-name descname"><span class="pre">UPCOMING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#atcoder.core.contest.ContestStatus.UPCOMING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.contest.</span></span><span class="sig-name descname"><span class="pre">ContestType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/contest.html#ContestType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.contest.ContestType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestType.BEGINNER">
+<span class="sig-name descname"><span class="pre">BEGINNER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#atcoder.core.contest.ContestType.BEGINNER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestType.GRAND">
+<span class="sig-name descname"><span class="pre">GRAND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#atcoder.core.contest.ContestType.GRAND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestType.HEURISTIC">
+<span class="sig-name descname"><span class="pre">HEURISTIC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#atcoder.core.contest.ContestType.HEURISTIC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestType.MISC">
+<span class="sig-name descname"><span class="pre">MISC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#atcoder.core.contest.ContestType.MISC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.contest.ContestType.REGULAR">
+<span class="sig-name descname"><span class="pre">REGULAR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#atcoder.core.contest.ContestType.REGULAR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-atcoder.core.language">
+<span id="atcoder-core-language-module"></span><h2>atcoder.core.language module<a class="headerlink" href="#module-atcoder.core.language" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.language.Language">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.language.</span></span><span class="sig-name descname"><span class="pre">Language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/language.html#Language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.language.Language" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.language.Language.category">
+<span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.language.Language.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.language.Language.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#atcoder.core.language.Language.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.language.Language.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.language.Language.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.language.Language.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.language.Language.version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-atcoder.core.network">
+<span id="atcoder-core-network-module"></span><h2>atcoder.core.network module<a class="headerlink" href="#module-atcoder.core.network" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.network.load_cookies">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.network.</span></span><span class="sig-name descname"><span class="pre">load_cookies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">requests.cookies.RequestsCookieJar</span></span></span><a class="reference internal" href="_modules/atcoder/core/network.html#load_cookies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.network.load_cookies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.network.restore_session">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.network.</span></span><span class="sig-name descname"><span class="pre">restore_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">requests.sessions.Session</span></span></span><a class="reference internal" href="_modules/atcoder/core/network.html#restore_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.network.restore_session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.network.save_cookies">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.network.</span></span><span class="sig-name descname"><span class="pre">save_cookies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cookies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">requests.cookies.RequestsCookieJar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/atcoder/core/network.html#save_cookies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.network.save_cookies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-atcoder.core.submission_result">
+<span id="atcoder-core-submission-result-module"></span><h2>atcoder.core.submission_result module<a class="headerlink" href="#module-atcoder.core.submission_result" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.JudgeResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.submission_result.</span></span><span class="sig-name descname"><span class="pre">JudgeResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">case_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#atcoder.core.submission_result.SubmissionStatus" title="atcoder.core.submission_result.SubmissionStatus"><span class="pre">atcoder.core.submission_result.SubmissionStatus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exec_time_ms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_usage_kb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/submission_result.html#JudgeResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.submission_result.JudgeResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.JudgeResult.case_name">
+<span class="sig-name descname"><span class="pre">case_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.submission_result.JudgeResult.case_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.JudgeResult.exec_time_ms">
+<span class="sig-name descname"><span class="pre">exec_time_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#atcoder.core.submission_result.JudgeResult.exec_time_ms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.JudgeResult.memory_usage_kb">
+<span class="sig-name descname"><span class="pre">memory_usage_kb</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#atcoder.core.submission_result.JudgeResult.memory_usage_kb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.JudgeResult.status">
+<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#atcoder.core.submission_result.SubmissionStatus" title="atcoder.core.submission_result.SubmissionStatus"><span class="pre">atcoder.core.submission_result.SubmissionStatus</span></a></em><a class="headerlink" href="#atcoder.core.submission_result.JudgeResult.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionDetails">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.submission_result.</span></span><span class="sig-name descname"><span class="pre">SubmissionDetails</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">judge_results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.submission_result.JudgeResult" title="atcoder.core.submission_result.JudgeResult"><span class="pre">atcoder.core.submission_result.JudgeResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/submission_result.html#SubmissionDetails"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.submission_result.SubmissionDetails" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionDetails.code">
+<span class="sig-name descname"><span class="pre">code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionDetails.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionDetails.judge_results">
+<span class="sig-name descname"><span class="pre">judge_results</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.submission_result.JudgeResult" title="atcoder.core.submission_result.JudgeResult"><span class="pre">atcoder.core.submission_result.JudgeResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionDetails.judge_results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.submission_result.</span></span><span class="sig-name descname"><span class="pre">SubmissionResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#atcoder.core.submission_result.SubmissionSummary" title="atcoder.core.submission_result.SubmissionSummary"><span class="pre">atcoder.core.submission_result.SubmissionSummary</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.submission_result.SubmissionDetails" title="atcoder.core.submission_result.SubmissionDetails"><span class="pre">atcoder.core.submission_result.SubmissionDetails</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/submission_result.html#SubmissionResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.submission_result.SubmissionResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionResult.details">
+<span class="sig-name descname"><span class="pre">details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.submission_result.SubmissionDetails" title="atcoder.core.submission_result.SubmissionDetails"><span class="pre">atcoder.core.submission_result.SubmissionDetails</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionResult.details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionResult.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionResult.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionResult.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#atcoder.core.submission_result.SubmissionSummary" title="atcoder.core.submission_result.SubmissionSummary"><span class="pre">atcoder.core.submission_result.SubmissionSummary</span></a></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionResult.summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.submission_result.</span></span><span class="sig-name descname"><span class="pre">SubmissionStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/submission_result.html#SubmissionStatus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.AC">
+<span class="sig-name descname"><span class="pre">AC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.AC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.CE">
+<span class="sig-name descname"><span class="pre">CE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.CE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.IE">
+<span class="sig-name descname"><span class="pre">IE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.IE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.JUDGING">
+<span class="sig-name descname"><span class="pre">JUDGING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.JUDGING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.MLE">
+<span class="sig-name descname"><span class="pre">MLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.MLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.OLE">
+<span class="sig-name descname"><span class="pre">OLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.OLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.QLE">
+<span class="sig-name descname"><span class="pre">QLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.QLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.RE">
+<span class="sig-name descname"><span class="pre">RE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.RE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.TLE">
+<span class="sig-name descname"><span class="pre">TLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.TLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.WA">
+<span class="sig-name descname"><span class="pre">WA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.WA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.WJ">
+<span class="sig-name descname"><span class="pre">WJ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.WJ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionStatus.WR">
+<span class="sig-name descname"><span class="pre">WR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionStatus.WR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionSummary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.submission_result.</span></span><span class="sig-name descname"><span class="pre">SubmissionSummary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datetime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime.datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_size_kb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#atcoder.core.submission_result.SubmissionStatus" title="atcoder.core.submission_result.SubmissionStatus"><span class="pre">atcoder.core.submission_result.SubmissionStatus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exec_time_ms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_usage_kb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/submission_result.html#SubmissionSummary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.submission_result.SubmissionSummary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionSummary.code_size_kb">
+<span class="sig-name descname"><span class="pre">code_size_kb</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionSummary.code_size_kb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionSummary.datetime">
+<span class="sig-name descname"><span class="pre">datetime</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime.datetime</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionSummary.datetime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionSummary.exec_time_ms">
+<span class="sig-name descname"><span class="pre">exec_time_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionSummary.exec_time_ms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionSummary.language_string">
+<span class="sig-name descname"><span class="pre">language_string</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionSummary.language_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionSummary.memory_usage_kb">
+<span class="sig-name descname"><span class="pre">memory_usage_kb</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionSummary.memory_usage_kb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionSummary.score">
+<span class="sig-name descname"><span class="pre">score</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionSummary.score" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionSummary.status">
+<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#atcoder.core.submission_result.SubmissionStatus" title="atcoder.core.submission_result.SubmissionStatus"><span class="pre">atcoder.core.submission_result.SubmissionStatus</span></a></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionSummary.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionSummary.task_id">
+<span class="sig-name descname"><span class="pre">task_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionSummary.task_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.SubmissionSummary.username">
+<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.submission_result.SubmissionSummary.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.status_from_str">
+<span class="sig-prename descclassname"><span class="pre">atcoder.core.submission_result.</span></span><span class="sig-name descname"><span class="pre">status_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#atcoder.core.submission_result.SubmissionStatus" title="atcoder.core.submission_result.SubmissionStatus"><span class="pre">atcoder.core.submission_result.SubmissionStatus</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/atcoder/core/submission_result.html#status_from_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.submission_result.status_from_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.submission_result.status_to_string">
+<span class="sig-prename descclassname"><span class="pre">atcoder.core.submission_result.</span></span><span class="sig-name descname"><span class="pre">status_to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#atcoder.core.submission_result.SubmissionStatus" title="atcoder.core.submission_result.SubmissionStatus"><span class="pre">atcoder.core.submission_result.SubmissionStatus</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/atcoder/core/submission_result.html#status_to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.submission_result.status_to_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-atcoder.core.task">
+<span id="atcoder-core-task-module"></span><h2>atcoder.core.task module<a class="headerlink" href="#module-atcoder.core.task" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="atcoder.core.task.Task">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">atcoder.core.task.</span></span><span class="sig-name descname"><span class="pre">Task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contest_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_limit_ms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_limit_kb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/atcoder/core/task.html#Task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.task.Task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.task.Task.contest_id">
+<span class="sig-name descname"><span class="pre">contest_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.task.Task.contest_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.task.Task.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#atcoder.core.task.Task.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.task.Task.memory_limit_kb">
+<span class="sig-name descname"><span class="pre">memory_limit_kb</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.task.Task.memory_limit_kb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.task.Task.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.task.Task.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.task.Task.order">
+<span class="sig-name descname"><span class="pre">order</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.task.Task.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atcoder.core.task.Task.time_limit_ms">
+<span class="sig-name descname"><span class="pre">time_limit_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atcoder.core.task.Task.time_limit_ms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-atcoder.core.utils">
+<span id="atcoder-core-utils-module"></span><h2>atcoder.core.utils module<a class="headerlink" href="#module-atcoder.core.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.utils.prepare_directory">
+<span class="sig-prename descclassname"><span class="pre">atcoder.core.utils.</span></span><span class="sig-name descname"><span class="pre">prepare_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/atcoder/core/utils.html#prepare_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.utils.prepare_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atcoder.core.utils.unwrap">
+<span class="sig-prename descclassname"><span class="pre">atcoder.core.utils.</span></span><span class="sig-name descname"><span class="pre">unwrap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">atcoder.core.utils.T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">atcoder.core.utils.T</span></span></span><a class="reference internal" href="_modules/atcoder/core/utils.html#unwrap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atcoder.core.utils.unwrap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-atcoder.core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-atcoder.core" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">atcoder.core package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-atcoder.core.auth">atcoder.core.auth module</a></li>
+<li><a class="reference internal" href="#module-atcoder.core.contest">atcoder.core.contest module</a></li>
+<li><a class="reference internal" href="#module-atcoder.core.language">atcoder.core.language module</a></li>
+<li><a class="reference internal" href="#module-atcoder.core.network">atcoder.core.network module</a></li>
+<li><a class="reference internal" href="#module-atcoder.core.submission_result">atcoder.core.submission_result module</a></li>
+<li><a class="reference internal" href="#module-atcoder.core.task">atcoder.core.task module</a></li>
+<li><a class="reference internal" href="#module-atcoder.core.utils">atcoder.core.utils module</a></li>
+<li><a class="reference internal" href="#module-atcoder.core">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="atcoder.html"
+                          title="previous chapter">atcoder package</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="atcoder.core.crawl.html"
+                          title="next chapter">atcoder.core.crawl package</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/atcoder.core.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="atcoder.core.crawl.html" title="atcoder.core.crawl package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="atcoder.html" title="atcoder package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">atcoder-api v0.2.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="atcoder.html" >atcoder package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">atcoder.core package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, kagemeka.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>
