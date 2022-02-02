@@ -1,8 +1,9 @@
 import dataclasses
+import getpass
 import json
 import os
 import typing
-import getpass
+
 import requests
 
 
