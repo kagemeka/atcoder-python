@@ -19,7 +19,6 @@ class ContestColor(enum.Enum):
     RED = enum.auto()
 
 
-@dataclasses.dataclass
 class ContestStatus(enum.Enum):
     RUNNING = enum.auto()
     PERMANENT = enum.auto()
