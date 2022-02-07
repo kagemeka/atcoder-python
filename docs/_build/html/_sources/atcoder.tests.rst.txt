@@ -20,10 +20,18 @@ atcoder.tests.login\_test module
    :undoc-members:
    :show-inheritance:
 
-atcoder.tests.submission\_result\_test module
----------------------------------------------
+atcoder.tests.network\_test module
+----------------------------------
 
-.. automodule:: atcoder.tests.submission_result_test
+.. automodule:: atcoder.tests.network_test
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+atcoder.tests.submission\_test module
+-------------------------------------
+
+.. automodule:: atcoder.tests.submission_test
    :members:
    :undoc-members:
    :show-inheritance:
@@ -36,10 +44,10 @@ atcoder.tests.submit\_test module
    :undoc-members:
    :show-inheritance:
 
-atcoder.tests.user\_agent module
---------------------------------
+atcoder.tests.user\_agent\_test module
+--------------------------------------
 
-.. automodule:: atcoder.tests.user_agent
+.. automodule:: atcoder.tests.user_agent_test
    :members:
    :undoc-members:
    :show-inheritance:
