@@ -1,41 +1,84 @@
 import dataclasses
-import http.client
+import http
 import logging
+import typing
 
+import atcoder.auth
+import atcoder.scrape
+import atcoder.utils
 import requests
+from atcoder.constant import _SITE_URL
 
-from atcoder.core.auth import (
-    InvalidSessionError,
-    LoginCredentials,
-    is_logged_in,
-)
-from atcoder.core.crawl.login import (
-    _LoginPostParams,
-    get_login_page,
-    post_login,
-)
-from atcoder.core.scrape.login import scrape_csrf_token
-
-logger = logging.getLogger(__name__)
+_LOGIN_URL = f"{_SITE_URL}/login"
+_LOGGER = logging.getLogger(__name__)
 
 
-async def login(credentials: LoginCredentials) -> requests.Session:
+@dataclasses.dataclass
+class _LoginPostParams:
+    username: str
+    password: str
+    csrf_token: str
+
+
+def _get_login_page(
+    session: typing.Optional[requests.Session] = None,
+) -> requests.Response:
+    if session is None:
+        return requests.get(_LOGIN_URL)
+    return session.get(_LOGIN_URL)
+
+
+def _scrape_csrf_token(html: str) -> str:
+    soup = atcoder.scrape._parse_html(html)
+    return atcoder.utils._unwrap(
+        atcoder.scrape._scrape_csrf_token_in_form(soup.find_all("form")[1])
+    )
+
+
+def _post_login_info(
+    session: requests.Session,
+    params: _LoginPostParams,
+) -> requests.Response:
+    return session.post(
+        url=_LOGIN_URL,
+        data=dataclasses.asdict(params),
+    )
+
+
+def _login(
+    credentials: atcoder.auth.LoginCredentials,
+) -> requests.Session:
     session = requests.session()
-    response = await get_login_page(session)
-    token = await scrape_csrf_token(response.content)
-    response = await post_login(
+    response = _get_login_page(session)
+    token = _scrape_csrf_token(response.text)
+    response = _post_login_info(
         session,
         _LoginPostParams(
             **dataclasses.asdict(credentials),
             csrf_token=token,
         ),
     )
-    if not is_logged_in(session):
-        raise InvalidSessionError(
-            "Cannot login to atcoder.jp, please check your credentials",
+    if not atcoder.auth._is_logged_in(session):
+        raise atcoder.auth.InvalidSessionError(
+            "Cannot login to atcoder.jp, please check your credentials.",
         )
-    logger.debug(
-        f"{response.status_code}"
-        f" {http.client.responses.get(response.status_code)}"
+    _LOGGER.info(
+        f"login to atcoder: {http.client.responses.get(response.status_code)}"
     )
     return session
+
+
+if __name__ == "__main__":
+    _LOGGING_FORMAT = "%(asctime)s %(levelname)s %(pathname)s %(message)s"
+    logging.basicConfig(
+        format=_LOGGING_FORMAT,
+        datefmt="%Y-%m-%d %H:%M:%S%z",
+        handlers=[logging.StreamHandler()],
+        level=logging.DEBUG,
+    )
+
+    import http.cookies
+
+    credentials = atcoder.auth._input_login_credentials()
+    session = _login(credentials)
+    print(session.cookies)

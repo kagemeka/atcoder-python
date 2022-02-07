@@ -19,8 +19,7 @@ license = "MIT"
 maintainers = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 name = "atcoder-api"
 packages = [
-  # {include = "atcoder", from = "src"},
-  {include = "atcoder", from = "src/v2"},
+  {include = "atcoder", from = "src"},
 ]
 readme = "README.md"
 repository = "https://github.com/competitive-programming-helper/atcoder-api"
