@@ -22,7 +22,7 @@ def input_login_credentials() -> LoginCredentials:
 
 def credentials_from_json_file(json_filepath: str) -> LoginCredentials:
     assert os.path.exists(json_filepath)
-    with open(file=json_filepath, mode="r") as f:
+    with open(file=json_filepath, mode="r", encoding="utf-8") as f:
         credentials_dict: typing.Dict[str, str] = json.load(f)
     return LoginCredentials(**credentials_dict)
 

@@ -7,20 +7,31 @@ authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 classifiers = []
 description = "AtCoder API."
 documentation = "https://atcoder-api-python.readthedocs.io"
-exclude = ["./**/*_test.py", "./**/test_*.py", "./**/tests/"]
+exclude = [
+  "./**/tests/",
+  "./**/*_test.py",
+  "./**/test_*.py",
+  "./**/_test_*.py",
+]
 homepage = "https://atcoder-api-python.readthedocs.io"
 keywords = ["atcoder", "api"]
 license = "MIT"
 maintainers = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 name = "atcoder-api"
-packages = [{include = "atcoder", from = "src"}]
+packages = [
+  # {include = "atcoder", from = "src"},
+  {include = "atcoder", from = "src/v2"},
+]
 readme = "README.md"
 repository = "https://github.com/competitive-programming-helper/atcoder-api"
 version = "0.2.3"
 
 [tool.poetry.dependencies]
+aiodns = "^"
+aiohttp = "^"
 beautifulsoup4 = "^"
 boto3 = "^"
+cchardet = "^"
 lxml = "^"
 pandas = "^"
 python = ">=3.8,<3.11"
@@ -32,6 +43,7 @@ tqdm = "^"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^"
+bandit = "^"
 black = "^"
 blacken-docs = "^"
 flake8 = "^"
@@ -40,6 +52,7 @@ mypy = "^"
 myst-parser = "^"
 pdoc3 = "^"
 pydocstyle = "^"
+pylint = "^"
 pytest = "^"
 pytest-asyncio = "^"
 sphinx = "^"

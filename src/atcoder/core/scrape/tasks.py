@@ -3,7 +3,7 @@ import typing
 import bs4
 
 from atcoder.core.scrape.contest import scrape_contest
-from atcoder.core.scrape.utils import parse_html
+from atcoder.core.scrape.utils import _parse_html
 from atcoder.core.task import Task
 
 
@@ -21,5 +21,5 @@ async def scrape_tasks(html: bytes) -> typing.List[Task]:
             contest_id=contest.id,
         )
 
-    soup = await parse_html(html)
+    soup = _parse_html(html)
     return [await scrape_task(row) for row in soup.table.tbody.find_all("tr")]

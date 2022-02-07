@@ -3,21 +3,21 @@ import typing
 
 from atcoder.core.language import Language
 from atcoder.core.scrape.form import scrape_csrf_token_in_form
-from atcoder.core.scrape.utils import _scrape_html_options, parse_html
+from atcoder.core.scrape.utils import _parse_html, _scrape_html_options
 from atcoder.core.utils import unwrap
 
 
 async def scrape_csrf_token(html: bytes) -> str:
-    soup = await parse_html(html)
+    soup = _parse_html(html)
     return unwrap(await scrape_csrf_token_in_form(soup.find_all("form")[1]))
 
 
 async def scrape_task_ids(html: bytes) -> typing.List[str]:
-    return unwrap(await _scrape_html_options(html, "select-task"))
+    return unwrap(_scrape_html_options(html, "select-task"))
 
 
 async def scrape_languages(html: bytes) -> typing.List[Language]:
-    soup = await parse_html(html)
+    soup = _parse_html(html)
     form = soup.find_all("form")[1]
     section = form.find(id="select-lang").div
     languages = []

@@ -6,7 +6,7 @@ import requests
 
 from atcoder.core.auth import input_login_credentials
 from atcoder.core.crawl.login import (
-    LoginPostParams,
+    _LoginPostParams,
     get_login_page,
     post_login,
 )
@@ -22,7 +22,7 @@ async def _login_with_new_session() -> requests.Session:
     credentials = input_login_credentials()
     response = await post_login(
         session,
-        LoginPostParams(
+        _LoginPostParams(
             **dataclasses.asdict(credentials),
             csrf_token=token,
         ),

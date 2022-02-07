@@ -1,9 +1,9 @@
-# import dataclasses
-# import typing
+from atcoder.constant import _SITE_URL
 
-# import requests
+LOGIN_URL = f"{_SITE_URL}/login"
 
-# from atcoder.core.crawl.constant import LOGIN_URL
+
+from atcoder.core.crawl.constant import LOGIN_URL
 
 
 # async def get_login_page(
@@ -29,3 +29,8 @@
 #         url=LOGIN_URL,
 #         data=dataclasses.asdict(post_params),
 #     )
+
+
+# async def scrape_csrf_token(html: bytes) -> str:
+#     soup = _parse_html(html)
+#     return unwrap(await scrape_csrf_token_in_form(soup.find_all("form")[1]))

@@ -10,7 +10,7 @@ from atcoder.core.auth import (
     is_logged_in,
 )
 from atcoder.core.crawl.login import (
-    LoginPostParams,
+    _LoginPostParams,
     get_login_page,
     post_login,
 )
@@ -25,7 +25,7 @@ async def login(credentials: LoginCredentials) -> requests.Session:
     token = await scrape_csrf_token(response.content)
     response = await post_login(
         session,
-        LoginPostParams(
+        _LoginPostParams(
             **dataclasses.asdict(credentials),
             csrf_token=token,
         ),

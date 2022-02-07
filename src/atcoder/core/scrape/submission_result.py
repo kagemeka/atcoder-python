@@ -2,7 +2,7 @@ import typing
 
 import pandas as pd
 
-from atcoder.core.scrape.utils import _strip_unit, parse_html
+from atcoder.core.scrape.utils import _parse_html, _strip_unit
 from atcoder.core.submission_result import (
     JudgeResult,
     SubmissionDetails,
@@ -17,7 +17,7 @@ from atcoder.core.utils import unwrap
 async def scrape_id(html: bytes) -> int:
     import re
 
-    soup = await parse_html(html)
+    soup = _parse_html(html)
     match = re.match(r"^.*\#(\d+).*$", soup.find(class_="h2").text)
     return int(unwrap(match).group(1))
 
@@ -25,7 +25,7 @@ async def scrape_id(html: bytes) -> int:
 async def scrape_summary(html: bytes) -> SubmissionSummary:
     import datetime
 
-    soup = await parse_html(html)
+    soup = _parse_html(html)
     infos = soup.table.find_all("tr")
     assert len(infos) >= 7
     if soup.table.find(class_="waiting-judge") is not None:
@@ -63,7 +63,7 @@ async def scrape_submission_result(html: bytes) -> SubmissionResult:
 
 
 async def scrape_code(html: bytes) -> str:
-    soup = await parse_html(html)
+    soup = _parse_html(html)
     return typing.cast(str, soup.find(id="submission-code").text)
 
 

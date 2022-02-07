@@ -25,9 +25,9 @@ class Test(unittest.TestCase):
             self.assertIsNone(await scrape_submissions(response.content))
 
             response = await get_submissions_page("abc236")
-            print(await scrape_language_categories(response.content))
-            print(await scrape_submission_statuses(response.content))
-            print(await scrape_task_ids(response.content))
+            print(scrape_language_categories(response.content))
+            print(scrape_submission_statuses(response.content))
+            print(scrape_task_ids(response.content))
 
         asyncio.run(wrap())
 
