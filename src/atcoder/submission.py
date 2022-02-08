@@ -270,8 +270,13 @@ def _scrape_pagination(
     pagination = soup.find(class_="pagination")
     if pagination is None:
         return None
+    pages = pagination.find_all('li')
+    if not pages:
+        _LOGGER.info('no submissions')
+        return None
+    _LOGGER.info(f'found {len(pages)} pages')
     current_page = int(pagination.find(class_="active").text)
-    last_page = int(pagination.find_all("li")[-1].text)
+    last_page = int(pages[-1].text)
     return current_page, last_page
 
 
