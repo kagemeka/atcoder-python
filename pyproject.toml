@@ -7,9 +7,6 @@ authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 classifiers = []
 description = "AtCoder API."
 documentation = "https://atcoder-api-python.readthedocs.io"
-include = [
-  "./**/src/languages.yaml",
-]
 exclude = [
   "./**/tests/",
   "./**/*_test.py",
@@ -17,6 +14,9 @@ exclude = [
   "./**/_test_*.py",
 ]
 homepage = "https://atcoder-api-python.readthedocs.io"
+include = [
+  "./**/src/languages.yaml",
+]
 keywords = ["atcoder", "api"]
 license = "MIT"
 maintainers = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
@@ -29,6 +29,7 @@ repository = "https://github.com/competitive-programming-helper/atcoder-api"
 version = "0.3.3"
 
 [tool.poetry.dependencies]
+PyYAML = "^"
 aiodns = "^"
 aiohttp = "^"
 beautifulsoup4 = "^"
@@ -60,8 +61,8 @@ pytest = "^"
 pytest-asyncio = "^"
 sphinx = "^"
 sphinxcontrib-mermaid = "^"
-types-requests = "^"
 types-PyYAML = "^"
+types-requests = "^"
 
 [tool.black]
 # compatible configurations -> https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html
