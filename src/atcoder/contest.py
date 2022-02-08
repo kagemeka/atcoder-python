@@ -59,12 +59,12 @@ class Contest:
 
 
 async def _get_contest_page(
+    session: aiohttp.ClientSession,
     contest_id: str,
 ) -> aiohttp.ClientResponse:
     url = f"{_CONTESTS_URL}/{contest_id}"
-    async with aiohttp.ClientSession() as session:
-        _LOGGER.info(f"get {url}")
-        return await session.get(url)
+    _LOGGER.info(f"get {url}")
+    return await session.get(url)
 
 
 async def _get_archive_page(
@@ -224,3 +224,29 @@ async def fetch_all_contests() -> typing.AsyncIterator[Contest]:
 
 # async def register() -> None:
 #     ...
+
+
+if __name__ == "__main__":
+    import asyncio
+    import aiohttp
+
+    _LOGGING_FORMAT = "%(asctime)s %(levelname)s %(pathname)s %(message)s"
+    logging.basicConfig(
+        format=_LOGGING_FORMAT,
+        datefmt="%Y-%m-%d %H:%M:%S%z",
+        handlers=[logging.StreamHandler()],
+        level=logging.DEBUG,
+    )
+
+    async def test() -> None:
+        async with aiohttp.ClientSession() as session:
+
+            responses = [
+                await _get_contest_page(session, "abc001") for _ in range(20)
+            ]
+            for response in responses:
+                await response.text()
+            #     print(1)
+            # await asyncio.sleep(1)
+
+    asyncio.run(test())
