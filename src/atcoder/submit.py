@@ -3,12 +3,13 @@ import logging
 import re
 import typing
 
+import requests
+
 import atcoder.auth
 import atcoder.contest
 import atcoder.language
 import atcoder.scrape
 import atcoder.utils
-import requests
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -84,7 +85,7 @@ def _scrape_languages(
     return languages
 
 
-def _submit_task(
+def submit_task(
     session: requests.Session,
     contest_id: str,
     task_id: str,
@@ -111,17 +112,3 @@ def fetch_languages(
         raise atcoder.auth.InvalidSessionError
     response = _get_submit_page(session, "abc001")
     return _scrape_languages(response.text)
-
-
-if __name__ == "__main__":
-    import asyncio
-
-    import atcoder.login
-
-    async def test() -> None:
-
-        cred = atcoder.auth._input_login_credentials()
-        session = atcoder.login._login(cred)
-        print(fetch_languages(session))
-
-    asyncio.run(test())

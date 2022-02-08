@@ -3,10 +3,11 @@ import http
 import logging
 import typing
 
+import requests
+
 import atcoder.auth
 import atcoder.scrape
 import atcoder.utils
-import requests
 from atcoder.constant import _SITE_URL
 
 _LOGIN_URL = f"{_SITE_URL}/login"
@@ -45,7 +46,7 @@ def _post_login_info(
     )
 
 
-def _login(
+def login(
     credentials: atcoder.auth.LoginCredentials,
 ) -> requests.Session:
     session = requests.session()
@@ -66,19 +67,3 @@ def _login(
         f"login to atcoder: {http.client.responses.get(response.status_code)}"
     )
     return session
-
-
-if __name__ == "__main__":
-    _LOGGING_FORMAT = "%(asctime)s %(levelname)s %(pathname)s %(message)s"
-    logging.basicConfig(
-        format=_LOGGING_FORMAT,
-        datefmt="%Y-%m-%d %H:%M:%S%z",
-        handlers=[logging.StreamHandler()],
-        level=logging.DEBUG,
-    )
-
-    import http.cookies
-
-    credentials = atcoder.auth._input_login_credentials()
-    session = _login(credentials)
-    print(session.cookies)

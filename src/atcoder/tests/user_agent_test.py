@@ -1,9 +1,10 @@
 import asyncio
 import unittest
 
+import pytest
+
 import atcoder.auth
 import atcoder.user_agent
-import pytest
 
 
 class Test(unittest.TestCase):

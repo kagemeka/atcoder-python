@@ -3,9 +3,10 @@ import logging
 import typing
 
 import aiohttp
+import bs4
+
 import atcoder.contest
 import atcoder.scrape
-import bs4
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -21,22 +22,22 @@ class Task:
 
 
 async def _get_task_page(
+    session: aiohttp.ClientSession,
     contest_id: str,
     task_id: str,
 ) -> aiohttp.ClientResponse:
     url = f"{atcoder.contest._CONTESTS_URL}/{contest_id}/tasks/{task_id}"
-    async with aiohttp.ClientSession() as session:
-        _LOGGER.info(f"get {url}")
-        return await session.get(url)
+    _LOGGER.info(f"get {url}")
+    return await session.get(url)
 
 
 async def _get_tasks_page(
+    session: aiohttp.ClientSession,
     contest_id: str,
 ) -> aiohttp.ClientResponse:
     url = f"{atcoder.contest._CONTESTS_URL}/{contest_id}/tasks"
-    async with aiohttp.ClientSession() as session:
-        _LOGGER.info(f"get {url}")
-        return await session.get(url)
+    _LOGGER.info(f"get {url}")
+    return await session.get(url)
 
 
 def _scrape_tasks(html: str) -> typing.List[Task]:

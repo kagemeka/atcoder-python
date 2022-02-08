@@ -1,10 +1,10 @@
-import asyncio
 import unittest
+
+import pytest
 
 import atcoder.auth
 import atcoder.login
 import atcoder.submit
-import pytest
 
 ABC001_1_CODE_PYTHON = """
 # API Code Submission Test.
@@ -23,18 +23,23 @@ if __name__ == '__main__':
 @pytest.mark.skip
 class Test(unittest.TestCase):
     def test_submit(self) -> None:
-        async def wrap() -> None:
-            credentials = atcoder.auth._input_login_credentials()
-            session = atcoder.login._login(credentials)
-            atcoder.submit._submit_task(
-                session,
-                "abc001",
-                "abc001_1",
-                ABC001_1_CODE_PYTHON,
-                4006,
-            )
+        credentials = atcoder.auth._input_login_credentials()
+        session = atcoder.login.login(credentials)
+        atcoder.submit.submit_task(
+            session,
+            "abc001",
+            "abc001_1",
+            ABC001_1_CODE_PYTHON,
+            4006,  # python3
+        )
+        session.close()
 
-        asyncio.run(wrap())
+    def test_fetch_language(self) -> None:
+
+        credentials = atcoder.auth._input_login_credentials()
+        session = atcoder.login.login(credentials)
+        print(atcoder.submit.fetch_languages(session))
+        session.close()
 
 
 if __name__ == "__main__":

@@ -6,8 +6,9 @@ import logging
 import typing
 
 import aiohttp
-import atcoder.scrape
 import bs4
+
+import atcoder.scrape
 from atcoder.constant import _SITE_URL
 
 _LOGGER = logging.getLogger(__name__)
@@ -68,29 +69,27 @@ async def _get_contest_page(
 
 
 async def _get_archive_page(
+    session: aiohttp.ClientSession,
     page: int,
 ) -> aiohttp.ClientResponse:
-    async with aiohttp.ClientSession() as session:
-        _LOGGER.info(f"get {_CONTESTS_ARCHIVE_URL}, page: {page}")
-        return await session.get(
-            url=_CONTESTS_ARCHIVE_URL,
-            params={
-                "page": page,
-                "lang": _LANGUAGE,
-            },
-        )
+    _LOGGER.info(f"get {_CONTESTS_ARCHIVE_URL}, page: {page}")
+    return await session.get(
+        url=_CONTESTS_ARCHIVE_URL,
+        params={
+            "page": page,
+            "lang": _LANGUAGE,
+        },
+    )
 
 
-async def _get_contests_page() -> aiohttp.ClientResponse:
-    async with aiohttp.ClientSession() as session:
-        _LOGGER.info(f"get {_CONTESTS_URL}")
-        res = await session.get(
-            _CONTESTS_URL,
-            params={"lang": _LANGUAGE},
-        )
-        # print(session._cookie_jar._cookies['atcoder.jp'].keys())
-        # print(res.status)
-        return res
+async def _get_contests_page(
+    session: aiohttp.ClientSession,
+) -> aiohttp.ClientResponse:
+    _LOGGER.info(f"get {_CONTESTS_URL}")
+    return await session.get(
+        _CONTESTS_URL,
+        params={"lang": _LANGUAGE},
+    )
 
 
 def _scrape_contest(html: str) -> Contest:
@@ -123,9 +122,9 @@ def _scrape_row(row: bs4.element.Tag) -> Contest:
     )
 
 
-async def _scrape_running_contests(
+def _scrape_running_contests(
     html: str,
-) -> typing.AsyncIterator[Contest]:
+) -> typing.Iterator[Contest]:
     soup = atcoder.scrape._parse_html(html)
     section = soup.find(id="contest-table-action")
     if section is None:
@@ -136,10 +135,10 @@ async def _scrape_running_contests(
         yield contest
 
 
-async def _scrape_permanent_contests(
+def _scrape_permanent_contests(
     html: str,
-) -> typing.AsyncIterator[Contest]:
-    async def scrape_row(row: bs4.element.Tag) -> Contest:
+) -> typing.Iterator[Contest]:
+    def scrape_row(row: bs4.element.Tag) -> Contest:
         infos = row.find_all("td")
         color_texts = infos[0].span.get("class")
         color = None if not color_texts else _color_from_string(color_texts[0])
@@ -155,12 +154,12 @@ async def _scrape_permanent_contests(
     if section is None:
         return
     for row in section.table.tbody.find_all("tr"):
-        yield await scrape_row(row)
+        yield scrape_row(row)
 
 
-async def _scrape_upcoming_contests(
+def _scrape_upcoming_contests(
     html: str,
-) -> typing.AsyncIterator[Contest]:
+) -> typing.Iterator[Contest]:
     soup = atcoder.scrape._parse_html(html)
     section = soup.find(id="contest-table-upcoming")
     if section is None:
@@ -179,9 +178,9 @@ def _scrape_pagination(html: str) -> typing.Tuple[int, int]:
     return current, last
 
 
-async def _scrape_finished_contests(
+def _scrape_finished_contests(
     html: str,
-) -> typing.AsyncIterator[Contest]:
+) -> typing.Iterator[Contest]:
     soup = atcoder.scrape._parse_html(html)
     if soup.table is None:
         return
@@ -191,30 +190,34 @@ async def _scrape_finished_contests(
         yield contest
 
 
-async def _get_archive_pages() -> typing.AsyncIterator[aiohttp.ClientResponse]:
-    response = await _get_archive_page(1)
+async def _get_archive_pages(
+    session: aiohttp.ClientSession,
+) -> typing.AsyncIterator[aiohttp.ClientResponse]:
+    response = await _get_archive_page(session, 1)
     _, last_page = _scrape_pagination(await response.text())
     get_pages = [
-        asyncio.create_task(_get_archive_page(i))
+        asyncio.create_task(_get_archive_page(session, i))
         for i in range(1, last_page + 1)
     ]
-    # for response in await asyncio.gather(*get_pages):
-    #     yield response
-    for get_page in get_pages:
-        yield await get_page
+    for response in await asyncio.gather(*get_pages):
+        yield response
+    # for get_page in get_pages:
+    #     yield await get_page
 
 
-async def fetch_all_contests() -> typing.AsyncIterator[Contest]:
-    get = asyncio.create_task(_get_contests_page())
-    async for response in _get_archive_pages():
-        async for contest in _scrape_finished_contests(await response.text()):
+async def fetch_all_contests(
+    session: aiohttp.ClientSession,
+) -> typing.AsyncIterator[Contest]:
+    get = asyncio.create_task(_get_contests_page(session))
+    async for response in _get_archive_pages(session):
+        for contest in _scrape_finished_contests(await response.text()):
             yield contest
     html = await (await get).text()
-    async for contest in _scrape_upcoming_contests(html):
+    for contest in _scrape_upcoming_contests(html):
         yield contest
-    async for contest in _scrape_running_contests(html):
+    for contest in _scrape_running_contests(html):
         yield contest
-    async for contest in _scrape_permanent_contests(html):
+    for contest in _scrape_permanent_contests(html):
         yield contest
 
 
@@ -224,29 +227,3 @@ async def fetch_all_contests() -> typing.AsyncIterator[Contest]:
 
 # async def register() -> None:
 #     ...
-
-
-if __name__ == "__main__":
-    import asyncio
-    import aiohttp
-
-    _LOGGING_FORMAT = "%(asctime)s %(levelname)s %(pathname)s %(message)s"
-    logging.basicConfig(
-        format=_LOGGING_FORMAT,
-        datefmt="%Y-%m-%d %H:%M:%S%z",
-        handlers=[logging.StreamHandler()],
-        level=logging.DEBUG,
-    )
-
-    async def test() -> None:
-        async with aiohttp.ClientSession() as session:
-
-            responses = [
-                await _get_contest_page(session, "abc001") for _ in range(20)
-            ]
-            for response in responses:
-                await response.text()
-            #     print(1)
-            # await asyncio.sleep(1)
-
-    asyncio.run(test())

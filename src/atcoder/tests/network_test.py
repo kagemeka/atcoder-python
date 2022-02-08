@@ -2,10 +2,11 @@ import asyncio
 import os
 import unittest
 
+import pytest
+
 import atcoder.auth
 import atcoder.login
 import atcoder.network
-import pytest
 
 
 class Test(unittest.TestCase):
@@ -14,7 +15,7 @@ class Test(unittest.TestCase):
         async def wrap() -> None:
             cookies_path = "/tmp/cookies.json"
             credentials = atcoder.auth._input_login_credentials()
-            session = atcoder.login._login(credentials)
+            session = atcoder.login.login(credentials)
             self.assertTrue(atcoder.auth._is_logged_in(session))
             atcoder.network._save_cookies(session.cookies, cookies_path)
             del session
