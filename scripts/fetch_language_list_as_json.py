@@ -1,10 +1,11 @@
-import atcoder.user_agent
-import atcoder.auth
 import dataclasses
+import logging
 import pprint
+
 import yaml
 
-import logging
+import atcoder.auth
+import atcoder.user_agent
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGING_FORMAT = "%(asctime)s %(levelname)s %(pathname)s %(message)s"

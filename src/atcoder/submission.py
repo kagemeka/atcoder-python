@@ -16,7 +16,7 @@ import atcoder.utils
 
 _LOGGER = logging.getLogger(__name__)
 REQUEST_CHUNK_SIZE = 10
-REQUEST_INVERVAL_SEC = 0
+REQUEST_INTERVAL_SEC = 0
 
 
 class SubmissionStatus(enum.Enum):
@@ -349,9 +349,9 @@ async def _get_submissions_pages(
             )
             for page in range(i, min(i + REQUEST_CHUNK_SIZE, last_page + 1))
         ]
+        await asyncio.sleep(REQUEST_INTERVAL_SEC)
         for get_page in get_pages:
             yield await get_page
-        await asyncio.sleep(REQUEST_INVERVAL_SEC)
 
 
 def _get_my_submissions_pages(

@@ -10,11 +10,11 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
 import sys
 
-sys.path.insert(0, "./../src")
+import atcoder
 
+sys.path.insert(0, "./../src")
 
 # -- Project information -----------------------------------------------------
 
@@ -23,10 +23,10 @@ copyright = "2022, kagemeka"
 author = "kagemeka"
 
 # The short X.Y version
-version = "0.3.0"
+version = atcoder.__version__
 
 # The full version, including alpha/beta/rc tags
-release = "0.3.0"
+release = atcoder.__version__
 
 
 # -- General configuration ---------------------------------------------------

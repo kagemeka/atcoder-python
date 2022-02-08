@@ -2,6 +2,7 @@ import dataclasses
 import logging
 import re
 import typing
+
 import bs4
 import requests
 
