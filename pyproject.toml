@@ -7,6 +7,9 @@ authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 classifiers = []
 description = "AtCoder API."
 documentation = "https://atcoder-api-python.readthedocs.io"
+include = [
+  "./**/src/languages.yaml",
+]
 exclude = [
   "./**/tests/",
   "./**/*_test.py",
@@ -58,6 +61,7 @@ pytest-asyncio = "^"
 sphinx = "^"
 sphinxcontrib-mermaid = "^"
 types-requests = "^"
+types-PyYAML = "^"
 
 [tool.black]
 # compatible configurations -> https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html

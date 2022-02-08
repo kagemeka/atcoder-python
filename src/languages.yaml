@@ -1,25 +1,7 @@
-import dataclasses
-import typing
-
-
-@dataclasses.dataclass
-class Language:
-    id: int
-    text: str
-    name: typing.Optional[str] = None
-    compiler_or_runtime: typing.Optional[str] = None
-    version: typing.Optional[str] = None
-    compile_to: typing.Optional[str] = None
-    category: typing.Optional[str] = None
-    file_extensions: typing.Optional[typing.List[str]] = None
-
-
-LANGUAGES_YAML_TEXT = """
 - category: null
   compile_to: null
   compiler_or_runtime: GCC
   file_extensions:
-
     - c
     - h
   id: 4001
@@ -62,7 +44,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: OpenJDK
   file_extensions:
     - java
-    
+
   id: 4005
   name: Java
   text: Java (OpenJDK 11.0.6)
@@ -72,7 +54,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: null
   file_extensions:
     - py
-    
+
   id: 4006
   name: Python
   text: Python (3.8.2)
@@ -82,7 +64,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: null
   file_extensions:
     - sh
-    
+
   id: 4007
   name: Bash
   text: Bash (5.0.11)
@@ -90,9 +72,9 @@ LANGUAGES_YAML_TEXT = """
 - category: null
   compile_to: null
   compiler_or_runtime: null
-  file_extensions: 
+  file_extensions:
     - bc
-    
+
   id: 4008
   name: bc
   text: bc (1.07.1)
@@ -102,7 +84,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: GNU Awk
   file_extensions:
     - awk
-    
+
   id: 4009
   name: Awk
   text: Awk (GNU Awk 4.1.4)
@@ -112,7 +94,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: .NET Core
   file_extensions:
     - cs
-    
+
   id: 4010
   name: C#
   text: C# (.NET Core 3.1.201)
@@ -122,7 +104,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: Mono-mcs
   file_extensions:
     - cs
-    
+
   id: 4011
   name: C#
   text: C# (Mono-mcs 6.8.0.105)
@@ -130,9 +112,9 @@ LANGUAGES_YAML_TEXT = """
 - category: null
   compile_to: null
   compiler_or_runtime: Mono-csc
-  file_extensions: 
+  file_extensions:
     - cs
-    
+
   id: 4012
   name: C#
   text: C# (Mono-csc 3.5.0)
@@ -145,7 +127,7 @@ LANGUAGES_YAML_TEXT = """
     - cljs
     - cljc
     - edn
-  
+
   id: 4013
   name: Clojure
   text: Clojure (1.10.1.536)
@@ -155,7 +137,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: null
   file_extensions:
     - cr
-    
+
   id: 4014
   name: Crystal
   text: Crystal (0.33.0)
@@ -165,7 +147,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: DMD
   file_extensions:
     - d
-    
+
   id: 4015
   name: D
   text: D (DMD 2.091.0)
@@ -175,7 +157,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: GDC
   file_extensions:
     - d
-    
+
   id: 4016
   name: D
   text: D (GDC 9.2.1)
@@ -185,7 +167,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: LDC
   file_extensions:
     - d
-    
+
   id: 4017
   name: D
   text: D (LDC 1.20.1)
@@ -195,7 +177,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: null
   file_extensions:
     - dart
-    
+
   id: 4018
   name: Dart
   text: Dart (2.7.2)
@@ -218,7 +200,7 @@ LANGUAGES_YAML_TEXT = """
   id: 4020
   name: Erlang
   text: Erlang (22.3)
-  version: '22.3'
+  version: "22.3"
 - category: null
   compile_to: null
   compiler_or_runtime: null
@@ -323,7 +305,7 @@ LANGUAGES_YAML_TEXT = """
   compiler_or_runtime: null
   file_extensions:
     - jl
-  
+
   id: 4031
   name: Julia
   text: Julia (1.4.0)
@@ -487,7 +469,7 @@ LANGUAGES_YAML_TEXT = """
   id: 4048
   name: Racket
   text: Racket (7.6)
-  version: '7.6'
+  version: "7.6"
 - category: null
   compile_to: null
   compiler_or_runtime: null
@@ -544,7 +526,7 @@ LANGUAGES_YAML_TEXT = """
   id: 4054
   name: Standard ML
   text: Standard ML (MLton 20130715)
-  version: '20130715'
+  version: "20130715"
 - category: null
   compile_to: null
   compiler_or_runtime: null
@@ -562,7 +544,7 @@ LANGUAGES_YAML_TEXT = """
   id: 4056
   name: Text
   text: Text (cat 8.28)
-  version: '8.28'
+  version: "8.28"
 - category: null
   compile_to: null
   compiler_or_runtime: null
@@ -571,11 +553,11 @@ LANGUAGES_YAML_TEXT = """
   id: 4057
   name: TypeScript
   text: TypeScript (3.8)
-  version: '3.8'
+  version: "3.8"
 - category: null
   compile_to: null
   compiler_or_runtime: .NET Core
-  file_extensions: 
+  file_extensions:
     - vb
   id: 4058
   name: Visual Basic
@@ -619,7 +601,7 @@ LANGUAGES_YAML_TEXT = """
   id: 4062
   name: Brainfuck
   text: Brainfuck (bf 20041219)
-  version: '20041219'
+  version: "20041219"
 - category: null
   compile_to: null
   compiler_or_runtime: GNAT
@@ -656,7 +638,7 @@ LANGUAGES_YAML_TEXT = """
   id: 4066
   name: Sed
   text: Sed (4.4)
-  version: '4.4'
+  version: "4.4"
 - category: null
   compile_to: null
   compiler_or_runtime: null
@@ -666,4 +648,3 @@ LANGUAGES_YAML_TEXT = """
   name: Vim
   text: Vim (8.2.0460)
   version: 8.2.0460
-"""
