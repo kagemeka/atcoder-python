@@ -2,7 +2,7 @@ import dataclasses
 import logging
 import re
 import typing
-
+import bs4
 import requests
 
 import atcoder.auth
@@ -64,6 +64,23 @@ def _scrape_task_ids(html: str) -> typing.List[str]:
     )
 
 
+def _parse_language(section: bs4.Tag) -> atcoder.language.Language:
+    pattern = re.compile(r"^(.+)\s+\(((.+)\s+)?(.+)\)(;\s+(.+))?.*$")
+    language_text = section.text.strip()
+    match = re.match(pattern, language_text)
+    assert match is not None
+    _LOGGER.debug(match)
+    _LOGGER.debug(match.groups())
+    return atcoder.language.Language(
+        id=int(section.get("value")),
+        text=match[0],
+        name=match[1],
+        compiler_or_runtime=match[3],
+        version=match[4],
+        compile_to=match[6],
+    )
+
+
 def _scrape_languages(
     html: str,
 ) -> typing.List[atcoder.language.Language]:
@@ -71,17 +88,8 @@ def _scrape_languages(
     form = soup.find_all("form")[1]
     section = form.find(id="select-lang").div
     languages = []
-    pattern = re.compile(r"^(.+)\s+\((.+)\).*$")
     for option in section.find_all("option")[1:]:
-        language_string = option.text.strip()
-        match = re.match(pattern, language_string)
-        assert match is not None
-        language = atcoder.language.Language(
-            id=int(option.get("value")),
-            name=match[1],
-            version=match[2],
-        )
-        languages.append(language)
+        languages.append(_parse_language(option))
     return languages
 
 
