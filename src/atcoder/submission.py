@@ -46,6 +46,29 @@ def _status_to_string(status: SubmissionStatus) -> str:
         return status.name
 
 
+class LanguageParseError(Exception):
+    pass
+
+
+def _parse_language(language_text: str) -> atcoder.language.Language:
+    language = atcoder.language._language_from_text(language_text)
+    if language is not None:
+        return language
+    (
+        language_name,
+        compiler_or_runtime,
+        *_,
+    ) = atcoder.language._parse_language_text(language_text)
+    language = atcoder.language._language_from_name(language_name)
+    if language is not None:
+        return language
+    if compiler_or_runtime is None:
+        raise LanguageParseError
+    return atcoder.utils._unwrap(
+        atcoder.language._language_from_compiler(compiler_or_runtime),
+    )
+
+
 @dataclasses.dataclass(frozen=True)
 class JudgeResult:
     case_name: str
@@ -282,23 +305,6 @@ def _scrape_pagination(
     return current_page, last_page
 
 
-def _parse_language(language_text: str) -> atcoder.language.Language:
-    language = atcoder.language._language_from_text(language_text)
-    if language is not None:
-        return language
-    (
-        language_name,
-        compiler_or_runtime,
-        *_,
-    ) = atcoder.language._parse_language_text(language_text)
-    language = atcoder.language._language_from_name(language_name)
-    if language is not None:
-        return language
-    return atcoder.utils._unwrap(
-        atcoder.language._language_from_compiler(compiler_or_runtime),
-    )
-
-
 def _scrape_submission_row(row: bs4.element.Tag) -> SubmissionResult:
     infos = row.find_all("td")
     assert len(infos) >= 8
@@ -314,9 +320,6 @@ def _scrape_submission_row(row: bs4.element.Tag) -> SubmissionResult:
     else:
         exec_time_ms = None
         memory_usage_kb = None
-    print(infos)
-    print(infos[3])
-    print(infos[3].text)
     summary = Summary(
         datetime=datetime.datetime.strptime(
             infos[0].time.text,
