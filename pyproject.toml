@@ -23,7 +23,7 @@ packages = [
 ]
 readme = "README.md"
 repository = "https://github.com/competitive-programming-helper/atcoder-api"
-version = "0.3.0"
+version = "0.3.1"
 
 [tool.poetry.dependencies]
 aiodns = "^"

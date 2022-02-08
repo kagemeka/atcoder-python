@@ -4,12 +4,13 @@ import logging
 import types
 import typing
 
+import requests
+
 import atcoder.auth
 import atcoder.language
 import atcoder.login
 import atcoder.submission
 import atcoder.submit
-import requests
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -41,7 +42,7 @@ class UserSessionAgent:
             self.__session
         ):
             try:
-                self.__session = atcoder.login._login(self.__credentials)
+                self.__session = atcoder.login.login(self.__credentials)
             except atcoder.auth.InvalidSessionError as exception:
                 _LOGGER.error(str(exception))
                 raise exception
@@ -55,7 +56,7 @@ class UserSessionAgent:
     ) -> None:
         self.__update_session()
         assert self.__session is not None
-        atcoder.submit._submit_task(
+        atcoder.submit.submit_task(
             self.__session,
             contest_id,
             task_id,

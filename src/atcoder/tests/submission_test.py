@@ -2,6 +2,8 @@ import asyncio
 import logging
 import unittest
 
+import aiohttp
+
 import atcoder.submission
 from atcoder.submission import fetch_all_submission_results
 
@@ -18,13 +20,15 @@ class Test(unittest.TestCase):
     def test(self) -> None:
         async def wrap() -> None:
             contest_id = "abc001"
-            async for submission in fetch_all_submission_results(
-                contest_id,
-                params=atcoder.submission.SubmissionsSearchParams(
-                    username="kagemeka"
-                ),
-            ):
-                ...
+            async with aiohttp.ClientSession() as session:
+                async for submission in fetch_all_submission_results(
+                    session,
+                    contest_id,
+                    params=atcoder.submission.SubmissionsSearchParams(
+                        username="kagemeka"
+                    ),
+                ):
+                    ...
 
         asyncio.run(wrap())
 

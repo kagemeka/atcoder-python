@@ -6,12 +6,13 @@ import logging
 import typing
 
 import aiohttp
-import atcoder.auth
-import atcoder.contest
-import atcoder.utils
 import bs4
 import pandas as pd
 import requests
+
+import atcoder.auth
+import atcoder.contest
+import atcoder.utils
 
 _LOGGER = logging.getLogger(__name__)
 REQUEST_CHUNK_SIZE = 10
@@ -79,6 +80,7 @@ class SubmissionResult:
 
 
 async def _get_submission_page(
+    session: aiohttp.ClientSession,
     contest_id: str,
     submission_id: int,
 ) -> aiohttp.ClientResponse:
@@ -86,9 +88,8 @@ async def _get_submission_page(
         f"{atcoder.contest._CONTESTS_URL}/{contest_id}"
         f"/submissions/{submission_id}"
     )
-    async with aiohttp.ClientSession() as session:
-        _LOGGER.info(f"get {url}")
-        return await session.get(url)
+    _LOGGER.info(f"get {url}")
+    return await session.get(url)
 
 
 def _scrape_id(html: str) -> int:
@@ -218,17 +219,17 @@ def _make_url_params(
 
 
 async def _get_submissions_page(
+    session: aiohttp.ClientSession,
     contest_id: str,
     search_params: typing.Optional[SubmissionsSearchParams] = None,
     page: typing.Optional[int] = None,
 ) -> aiohttp.ClientResponse:
     url = f"{atcoder.contest._CONTESTS_URL}/{contest_id}/submissions"
-    async with aiohttp.ClientSession() as session:
-        _LOGGER.info(f"get {url}")
-        return await session.get(
-            url,
-            params=_make_url_params(search_params, page),
-        )
+    _LOGGER.info(f"get {url}, page: {page}")
+    return await session.get(
+        url,
+        params=_make_url_params(search_params, page),
+    )
 
 
 def _get_my_submissions_page(
@@ -270,11 +271,11 @@ def _scrape_pagination(
     pagination = soup.find(class_="pagination")
     if pagination is None:
         return None
-    pages = pagination.find_all('li')
+    pages = pagination.find_all("li")
     if not pages:
-        _LOGGER.info('no submissions')
+        _LOGGER.info("no submissions")
         return None
-    _LOGGER.info(f'found {len(pages)} pages')
+    _LOGGER.info(f"found {len(pages)} pages")
     current_page = int(pagination.find(class_="active").text)
     last_page = int(pages[-1].text)
     return current_page, last_page
@@ -327,10 +328,16 @@ def _scrape_submissions(
 
 
 async def _get_submissions_pages(
+    session: aiohttp.ClientSession,
     contest_id: str,
     search_params: typing.Optional[SubmissionsSearchParams] = None,
 ) -> typing.AsyncIterator[aiohttp.ClientResponse]:
-    response = await _get_submissions_page(contest_id, search_params, 1)
+    response = await _get_submissions_page(
+        session,
+        contest_id,
+        search_params,
+        1,
+    )
     pagination = _scrape_pagination(await response.text())
     if pagination is None:
         return
@@ -338,7 +345,7 @@ async def _get_submissions_pages(
     for i in range(1, last_page + 1, REQUEST_CHUNK_SIZE):
         get_pages = [
             asyncio.create_task(
-                _get_submissions_page(contest_id, search_params, page)
+                _get_submissions_page(session, contest_id, search_params, page)
             )
             for page in range(i, min(i + REQUEST_CHUNK_SIZE, last_page + 1))
         ]
@@ -366,27 +373,29 @@ def _get_my_submissions_pages(
         )
 
 
-async def fetch_submission_results(
+async def _fetch_submission_results(
+    session: aiohttp.ClientSession,
     contest_id: str,
     params: typing.Optional[SubmissionsSearchParams] = None,
     page: typing.Optional[int] = None,
 ) -> typing.AsyncIterator[SubmissionResult]:
-    response = await _get_submissions_page(contest_id, params, page)
+    response = await _get_submissions_page(session, contest_id, params, page)
     _LOGGER.info(f"fetch: submissions for {contest_id} page: {page}.")
     for submission in _scrape_submissions(await response.text()):
         yield submission
 
 
 async def fetch_all_submission_results(
+    session: aiohttp.ClientSession,
     contest_id: str,
     params: typing.Optional[SubmissionsSearchParams] = None,
 ) -> typing.AsyncIterator[SubmissionResult]:
-    async for response in _get_submissions_pages(contest_id, params):
+    async for response in _get_submissions_pages(session, contest_id, params):
         for submission in _scrape_submissions(await response.text()):
             yield submission
 
 
-def fetch_my_submission_results(
+def _fetch_my_submission_results(
     session: requests.Session,
     contest_id: str,
     params: typing.Optional[SubmissionsSearchParams] = None,
@@ -411,18 +420,20 @@ def fetch_all_my_submission_results(
 
 
 async def fetch_submission_details(
+    session: aiohttp.ClientSession,
     contest_id: str,
     submission_id: int,
 ) -> SubmissionResult:
-    response = await _get_submission_page(contest_id, submission_id)
+    response = await _get_submission_page(session, contest_id, submission_id)
     return _scrape_submission_result(await response.text())
 
 
 async def _fetch_submission_results_page_count(
+    session: aiohttp.ClientSession,
     contest_id: str,
     params: typing.Optional[SubmissionsSearchParams] = None,
 ) -> int:
-    response = await _get_submissions_page(contest_id, params)
+    response = await _get_submissions_page(session, contest_id, params)
     pagination = _scrape_pagination(await response.text())
     if pagination is None:
         return 0

@@ -1,18 +1,27 @@
+import logging
+
+import aiohttp
+
 import atcoder.constant
-import requests
 
 USERS_URL = f"{atcoder.constant._SITE_URL}/users"
 
+_LOGGER = logging.getLogger(__name__)
+
 
 async def _get_user_profile_page(
+    session: aiohttp.ClientSession,
     user_id: str,
-) -> requests.Response:
+) -> aiohttp.ClientResponse:
     url = f"{USERS_URL}/{user_id}"
-    return requests.get(url)
+    _LOGGER.info(f"get {url}")
+    return await session.get(url)
 
 
 async def _get_user_competition_history_page(
+    session: aiohttp.ClientSession,
     user_id: str,
-) -> requests.Response:
+) -> aiohttp.ClientResponse:
     url = f"{USERS_URL}/{user_id}/history"
-    return requests.get(url)
+    _LOGGER.info(f"get {url}")
+    return await session.get(url)
