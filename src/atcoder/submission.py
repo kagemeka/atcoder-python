@@ -12,6 +12,7 @@ import requests
 
 import atcoder.auth
 import atcoder.contest
+import atcoder.language
 import atcoder.utils
 
 _LOGGER = logging.getLogger(__name__)
@@ -58,7 +59,7 @@ class Summary:
     datetime: datetime.datetime
     task_id: str
     username: str
-    language_string: str
+    language: atcoder.language.Language
     score: int
     code_size_kb: int
     status: SubmissionStatus
@@ -125,7 +126,7 @@ def _scrape_summary(html: str) -> Summary:
         ),
         task_id=infos[1].a.get("href").split("/")[-1],
         username=infos[2].a.get("href").split("/")[-1],
-        language_string=infos[3].td.text,
+        language=_parse_language(infos[3].td.text.strip()),
         score=int(infos[4].td.text),
         code_size_kb=atcoder.scrape._strip_unit(infos[5].td.text),
         status=status,
@@ -281,6 +282,23 @@ def _scrape_pagination(
     return current_page, last_page
 
 
+def _parse_language(language_text: str) -> atcoder.language.Language:
+    language = atcoder.language._language_from_text(language_text)
+    if language is not None:
+        return language
+    (
+        language_name,
+        compiler_or_runtime,
+        *_,
+    ) = atcoder.language._parse_language_text(language_text)
+    language = atcoder.language._language_from_name(language_name)
+    if language is not None:
+        return language
+    return atcoder.utils._unwrap(
+        atcoder.language._language_from_compiler(compiler_or_runtime),
+    )
+
+
 def _scrape_submission_row(row: bs4.element.Tag) -> SubmissionResult:
     infos = row.find_all("td")
     assert len(infos) >= 8
@@ -296,6 +314,9 @@ def _scrape_submission_row(row: bs4.element.Tag) -> SubmissionResult:
     else:
         exec_time_ms = None
         memory_usage_kb = None
+    print(infos)
+    print(infos[3])
+    print(infos[3].text)
     summary = Summary(
         datetime=datetime.datetime.strptime(
             infos[0].time.text,
@@ -303,7 +324,7 @@ def _scrape_submission_row(row: bs4.element.Tag) -> SubmissionResult:
         ),
         task_id=infos[1].a.get("href").split("/")[-1],
         username=infos[2].a.get("href").split("/")[-1],
-        language_string=infos[3].text,
+        language=_parse_language(infos[3].text.strip()),
         score=int(infos[4].text),
         code_size_kb=atcoder.scrape._strip_unit(infos[5].text),
         status=status,

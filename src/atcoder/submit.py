@@ -66,19 +66,20 @@ def _scrape_task_ids(html: str) -> typing.List[str]:
 
 
 def _parse_language(section: bs4.Tag) -> atcoder.language.Language:
-    pattern = re.compile(r"^(.+)\s+\(((.+)\s+)?(.+)\)(;\s+(.+))?.*$")
     language_text = section.text.strip()
-    match = re.match(pattern, language_text)
-    assert match is not None
-    _LOGGER.debug(match)
-    _LOGGER.debug(match.groups())
+    (
+        name,
+        compiler_or_runtime,
+        version,
+        compile_to,
+    ) = atcoder.language._parse_language_text(language_text)
     return atcoder.language.Language(
         id=int(section.get("value")),
-        text=match[0],
-        name=match[1],
-        compiler_or_runtime=match[3],
-        version=match[4],
-        compile_to=match[6],
+        text=language_text,
+        name=name,
+        compiler_or_runtime=compiler_or_runtime,
+        version=version,
+        compile_to=compile_to,
     )
 
 
