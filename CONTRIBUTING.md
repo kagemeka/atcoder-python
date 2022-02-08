@@ -10,3 +10,9 @@ $ poetry run sphinx-apidoc -F -H atcoder-api -A kagemeka -V <version> docs/ src/
 $ cd docs/
 $ make clean && make html
 ```
+
+
+## update version
+edit 
+- pyproject.toml
+- src/atcoder/version.py

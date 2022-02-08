@@ -12,11 +12,12 @@ import requests
 
 import atcoder.auth
 import atcoder.contest
+import atcoder.language
 import atcoder.utils
 
 _LOGGER = logging.getLogger(__name__)
 REQUEST_CHUNK_SIZE = 10
-REQUEST_INVERVAL_SEC = 0
+REQUEST_INTERVAL_SEC = 0
 
 
 class SubmissionStatus(enum.Enum):
@@ -45,6 +46,29 @@ def _status_to_string(status: SubmissionStatus) -> str:
         return status.name
 
 
+class LanguageParseError(Exception):
+    pass
+
+
+def _parse_language(language_text: str) -> atcoder.language.Language:
+    language = atcoder.language._language_from_text(language_text)
+    if language is not None:
+        return language
+    (
+        language_name,
+        compiler_or_runtime,
+        *_,
+    ) = atcoder.language._parse_language_text(language_text)
+    language = atcoder.language._language_from_name(language_name)
+    if language is not None:
+        return language
+    if compiler_or_runtime is None:
+        raise LanguageParseError
+    return atcoder.utils._unwrap(
+        atcoder.language._language_from_compiler(compiler_or_runtime),
+    )
+
+
 @dataclasses.dataclass(frozen=True)
 class JudgeResult:
     case_name: str
@@ -58,7 +82,7 @@ class Summary:
     datetime: datetime.datetime
     task_id: str
     username: str
-    language_string: str
+    language: atcoder.language.Language
     score: int
     code_size_kb: int
     status: SubmissionStatus
@@ -125,7 +149,7 @@ def _scrape_summary(html: str) -> Summary:
         ),
         task_id=infos[1].a.get("href").split("/")[-1],
         username=infos[2].a.get("href").split("/")[-1],
-        language_string=infos[3].td.text,
+        language=_parse_language(infos[3].td.text.strip()),
         score=int(infos[4].td.text),
         code_size_kb=atcoder.scrape._strip_unit(infos[5].td.text),
         status=status,
@@ -303,7 +327,7 @@ def _scrape_submission_row(row: bs4.element.Tag) -> SubmissionResult:
         ),
         task_id=infos[1].a.get("href").split("/")[-1],
         username=infos[2].a.get("href").split("/")[-1],
-        language_string=infos[3].text,
+        language=_parse_language(infos[3].text.strip()),
         score=int(infos[4].text),
         code_size_kb=atcoder.scrape._strip_unit(infos[5].text),
         status=status,
@@ -349,9 +373,9 @@ async def _get_submissions_pages(
             )
             for page in range(i, min(i + REQUEST_CHUNK_SIZE, last_page + 1))
         ]
+        await asyncio.sleep(REQUEST_INTERVAL_SEC)
         for get_page in get_pages:
             yield await get_page
-        await asyncio.sleep(REQUEST_INVERVAL_SEC)
 
 
 def _get_my_submissions_pages(
