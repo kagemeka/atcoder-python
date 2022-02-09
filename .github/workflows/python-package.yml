@@ -27,9 +27,9 @@ jobs:
           echo 'source $HOME/.poetry/env' >> ~/.bashrc
       - name: Install dependencies
         run: |
-          source ~/.bashrc
+          source $HOME/.poetry/env
           poetry install
       - name: format and lint and test
         run: |
-          source ~/.bashrc
+          source $HOME/.poetry/env
           ./ci.sh
