@@ -1,5 +1,5 @@
 poetry update
-peotry run pre-commit run --all-files
+poetry run pre-commit run --all-files
 poetry run isort .
 poetry run black .
 poetry run mypy .
