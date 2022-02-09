@@ -32,8 +32,6 @@ version = "0.3.4"
 PyYAML = "^"
 aiodns = "^"
 aiohttp = "^"
-beautifulsoup4 = "^"
-boto3 = "^"
 cchardet = "^"
 lxml = "^"
 pandas = "^"
@@ -58,6 +56,7 @@ pdoc3 = "^"
 pre-commit = "^"
 pydocstyle = "^"
 pylint = "^"
+pyproject-flake8 = "^"
 pytest = "^"
 pytest-asyncio = "^"
 sphinx = "^"
@@ -73,12 +72,18 @@ line-length = 79
 target-version = ["py38", "py39", "py310"]
 
 [tool.flake8]
-count = 'true' # have not adaped to boolean value yet.
+# all options -> https://flake8.pycqa.org/en/latest/user/options.html
+count = 'true'
 exclude = ""
+exit_zero = 'true'
 ignore = 'E203'
+max_complexity = 7
 max_line_length = 79
-show-source = 'true'
+show_source = 'true'
 statistics = 'true'
+verbose = 'true'
+# https://flake8.pycqa.org/en/latest/user/options.html#cmdoption-flake8-max-complexity
+# https://en.wikipedia.org/wiki/Cyclomatic_complexity
 
 [tool.isort]
 # all config files -> https://pycqa.github.io/isort/docs/configuration/config_files.html
