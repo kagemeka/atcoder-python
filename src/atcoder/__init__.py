@@ -1,3 +1,3 @@
-from atcoder.version import _VERSION
+import pkg_resources
 
-__version__ = _VERSION
+__version__ = pkg_resources.get_distribution("atcoder-api").version

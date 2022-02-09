@@ -26,7 +26,7 @@ packages = [
 ]
 readme = "README.md"
 repository = "https://github.com/competitive-programming-helper/atcoder-api"
-version = "0.3.3"
+version = "0.3.4"
 
 [tool.poetry.dependencies]
 PyYAML = "^"
@@ -55,6 +55,7 @@ isort = "^"
 mypy = "^"
 myst-parser = "^"
 pdoc3 = "^"
+pre-commit = "^"
 pydocstyle = "^"
 pylint = "^"
 pytest = "^"
@@ -63,6 +64,7 @@ sphinx = "^"
 sphinxcontrib-mermaid = "^"
 types-PyYAML = "^"
 types-requests = "^"
+types-setuptools = "^"
 
 [tool.black]
 # compatible configurations -> https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html
