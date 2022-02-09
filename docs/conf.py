@@ -60,8 +60,8 @@ exclude_patterns = [
     "Thumbs.db",
     ".DS_Store",
     "tests",
-    "/**/tests/",
-    "/**/_test.py",
+    "./**/tests/",
+    "./**/_test.py",
 ]
 
 
