@@ -24,14 +24,16 @@ jobs:
       - name: Install poetry
         run: |
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - \
-          && echo 'source $HOME/.poetry/env' >> ~/.bashrc \
-          && source ~/.bashrc \
-          && cat ~/.bashrc
+          echo 'source $HOME/.poetry/env' >> ~/.bashrc
+          source ~/.bashrc
+          source $HOME/.poetry/env
       - name: Install dependencies
         run: |
+          source $HOME/.poetry/env
           poetry install
       - name: format and lint and test
         run: |
+          source $HOME/.poetry/env
           ./ci.sh
       # - name: Install dependencies
       #   run: |
