@@ -15,4 +15,3 @@ $ make clean && make html
 ## update version
 edit 
 - pyproject.toml
-- src/atcoder/version.py
