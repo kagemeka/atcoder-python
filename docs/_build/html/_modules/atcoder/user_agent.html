@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>atcoder.user_agent - atcoder-api 0.3.0 documentation</title>
+        <title>atcoder.user_agent - atcoder-api 0.3.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -122,7 +122,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">atcoder-api 0.3.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">atcoder-api 0.3.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +145,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">atcoder-api 0.3.0 documentation</span>
+  <span class="sidebar-brand-text">atcoder-api 0.3.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -155,8 +155,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../atcoder.html">atcoder package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../atcoder.tests.html">atcoder.tests package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../atcoder.html">atcoder package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -192,12 +191,13 @@
 <span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 
+<span class="kn">import</span> <span class="nn">requests</span>
+
 <span class="kn">import</span> <span class="nn">atcoder.auth</span>
 <span class="kn">import</span> <span class="nn">atcoder.language</span>
 <span class="kn">import</span> <span class="nn">atcoder.login</span>
 <span class="kn">import</span> <span class="nn">atcoder.submission</span>
 <span class="kn">import</span> <span class="nn">atcoder.submit</span>
-<span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -229,7 +229,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">__session</span>
         <span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__session</span> <span class="o">=</span> <span class="n">atcoder</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">_login</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__credentials</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__session</span> <span class="o">=</span> <span class="n">atcoder</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__credentials</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">atcoder</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">InvalidSessionError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
                 <span class="n">_LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">))</span>
                 <span class="k">raise</span> <span class="n">exception</span>
@@ -243,7 +243,7 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__update_session</span><span class="p">()</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="n">atcoder</span><span class="o">.</span><span class="n">submit</span><span class="o">.</span><span class="n">_submit_task</span><span class="p">(</span>
+        <span class="n">atcoder</span><span class="o">.</span><span class="n">submit</span><span class="o">.</span><span class="n">submit_task</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="p">,</span>
             <span class="n">contest_id</span><span class="p">,</span>
             <span class="n">task_id</span><span class="p">,</span>

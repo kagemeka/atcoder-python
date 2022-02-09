@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>atcoder.language - atcoder-api 0.3.0 documentation</title>
+        <title>atcoder.language - atcoder-api 0.3.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -122,7 +122,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">atcoder-api 0.3.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">atcoder-api 0.3.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +145,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">atcoder-api 0.3.0 documentation</span>
+  <span class="sidebar-brand-text">atcoder-api 0.3.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -155,8 +155,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../atcoder.html">atcoder package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../atcoder.tests.html">atcoder.tests package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../atcoder.html">atcoder package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -187,21 +186,119 @@
         <article role="main">
           <h1>Source code for atcoder.language</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">dataclasses</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">typing</span>
+
+<span class="kn">import</span> <span class="nn">atcoder.utils</span>
+
+<span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Language"><a class="viewcode-back" href="../../atcoder.html#atcoder.language.Language">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span> <span class="nc">Language</span><span class="p">:</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">version</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">compiler_or_runtime</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">version</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">compile_to</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">category</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">file_extensions</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 
-<span class="n">_NAME_TO_EXTENSION</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"C++"</span><span class="p">:</span> <span class="s2">".cpp"</span><span class="p">,</span>
-<span class="p">}</span>
+<span class="k">def</span> <span class="nf">_parse_language_text</span><span class="p">(</span>
+    <span class="n">language_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span>
+    <span class="nb">str</span><span class="p">,</span>
+    <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<span class="p">]:</span>
+    <span class="kn">import</span> <span class="nn">re</span>
+
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^(.+)\s+\(((.+)\s+)?(.+)\)(;\s+(.+))?.*$"</span><span class="p">)</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">language_text</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="k">match</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="k">match</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+        <span class="k">match</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+        <span class="k">match</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_download_languages</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">Language</span><span class="p">]]:</span>
+    <span class="kn">import</span> <span class="nn">pprint</span>
+
+    <span class="kn">import</span> <span class="nn">requests</span>
+    <span class="kn">import</span> <span class="nn">yaml</span>
+
+    <span class="n">_LANGUAGES_YAML_URL</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">"https://raw.githubusercontent.com/kagemeka/atcoder-api-python/"</span>
+        <span class="s2">"main/src/languages.yaml"</span>
+    <span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_LANGUAGES_YAML_URL</span><span class="p">)</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"download languages failed: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"download lanugages success"</span><span class="p">)</span>
+    <span class="n">languages</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">Language</span><span class="p">(</span><span class="o">**</span><span class="n">language</span><span class="p">)</span> <span class="k">for</span> <span class="n">language</span> <span class="ow">in</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"downloaded languages: </span><span class="se">\n</span><span class="si">{</span><span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="n">languages</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">languages</span>
+
+
+<span class="c1"># _LANGUAGES: typing.Optional[typing.List[Language]] = None</span>
+<span class="c1"># # _LANGUAGES_TO_ID</span>
+<span class="n">_LANGUAGES</span> <span class="o">=</span> <span class="n">atcoder</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">_unwrap</span><span class="p">(</span><span class="n">_download_languages</span><span class="p">())</span>
+
+
+<span class="n">_LANGUAGE_FROM_TEXT</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Language</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">_language_from_text</span><span class="p">(</span>
+    <span class="n">language_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Language</span><span class="p">]:</span>
+    <span class="k">global</span> <span class="n">_LANGUAGE_FROM_TEXT</span>
+    <span class="k">if</span> <span class="n">_LANGUAGE_FROM_TEXT</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_LANGUAGE_FROM_TEXT</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">language</span><span class="o">.</span><span class="n">text</span><span class="p">:</span> <span class="n">language</span> <span class="k">for</span> <span class="n">language</span> <span class="ow">in</span> <span class="n">_LANGUAGES</span>
+        <span class="p">}</span>
+    <span class="k">return</span> <span class="n">_LANGUAGE_FROM_TEXT</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">language_text</span><span class="p">)</span>
+
+
+<span class="n">_LANGUAGE_FROM_NAME</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Language</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">_language_from_name</span><span class="p">(</span>
+    <span class="n">language_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Language</span><span class="p">]:</span>
+    <span class="k">global</span> <span class="n">_LANGUAGE_FROM_NAME</span>
+    <span class="k">if</span> <span class="n">_LANGUAGE_FROM_NAME</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_LANGUAGE_FROM_NAME</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">language</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">language</span> <span class="k">for</span> <span class="n">language</span> <span class="ow">in</span> <span class="n">_LANGUAGES</span>
+        <span class="p">}</span>
+    <span class="k">return</span> <span class="n">_LANGUAGE_FROM_NAME</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">language_name</span><span class="p">)</span>
+
+
+<span class="n">_LANGUAGE_FROM_COMPILER</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Language</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">_language_from_compiler</span><span class="p">(</span>
+    <span class="n">compiler_or_runtime</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Language</span><span class="p">]:</span>
+    <span class="k">global</span> <span class="n">_LANGUAGE_FROM_COMPILER</span>
+    <span class="k">if</span> <span class="n">_LANGUAGE_FROM_COMPILER</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_LANGUAGE_FROM_COMPILER</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">language</span><span class="o">.</span><span class="n">compiler_or_runtime</span><span class="p">:</span> <span class="n">language</span>
+            <span class="k">for</span> <span class="n">language</span> <span class="ow">in</span> <span class="n">_LANGUAGES</span>
+            <span class="k">if</span> <span class="n">language</span><span class="o">.</span><span class="n">compiler_or_runtime</span>
+        <span class="p">}</span>
+    <span class="k">return</span> <span class="n">_LANGUAGE_FROM_COMPILER</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">compiler_or_runtime</span><span class="p">)</span>
 </pre></div>
         </article>
       </div>

@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>atcoder.crawl - atcoder-api 0.3.0 documentation</title>
+        <title>atcoder.login - atcoder-api 0.3.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -122,7 +122,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">atcoder-api 0.3.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">atcoder-api 0.3.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +145,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">atcoder-api 0.3.0 documentation</span>
+  <span class="sidebar-brand-text">atcoder-api 0.3.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -155,8 +155,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../atcoder.html">atcoder package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../atcoder.tests.html">atcoder.tests package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../atcoder.html">atcoder package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -185,28 +184,76 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for atcoder.crawl</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">typing</span>
+          <h1>Source code for atcoder.login</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">dataclasses</span>
+<span class="kn">import</span> <span class="nn">http</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">typing</span>
 
-<span class="kn">import</span> <span class="nn">aiohttp</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">import</span> <span class="nn">atcoder.auth</span>
+<span class="kn">import</span> <span class="nn">atcoder.scrape</span>
+<span class="kn">import</span> <span class="nn">atcoder.utils</span>
+<span class="kn">from</span> <span class="nn">atcoder.constant</span> <span class="kn">import</span> <span class="n">_SITE_URL</span>
+
+<span class="n">_LOGIN_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">_SITE_URL</span><span class="si">}</span><span class="s2">/login"</span>
+<span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="request_get"><a class="viewcode-back" href="../../atcoder.html#atcoder.crawl.request_get">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">request_get</span><span class="p">(</span>
-    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">session</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">client_reqrep</span><span class="o">.</span><span class="n">ClientResponse</span><span class="p">:</span>
+<span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span> <span class="nc">_LoginPostParams</span><span class="p">:</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">password</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">csrf_token</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="k">def</span> <span class="nf">_get_login_page</span><span class="p">(</span>
+    <span class="n">session</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">requests</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">()</span>
-    <span class="k">with</span> <span class="n">session</span><span class="p">:</span>
-        <span class="k">return</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_LOGIN_URL</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_LOGIN_URL</span><span class="p">)</span>
 
 
-<span class="c1"># async def _request_post(url: str, payload: typing.Dict) -&gt; None:</span>
-<span class="c1">#     ...</span>
+<span class="k">def</span> <span class="nf">_scrape_csrf_token</span><span class="p">(</span><span class="n">html</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">atcoder</span><span class="o">.</span><span class="n">scrape</span><span class="o">.</span><span class="n">_parse_html</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">atcoder</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">_unwrap</span><span class="p">(</span>
+        <span class="n">atcoder</span><span class="o">.</span><span class="n">scrape</span><span class="o">.</span><span class="n">_scrape_csrf_token_in_form</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"form"</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="p">)</span>
 
 
-<span class="c1"># async def _fetch_page_source(url: str) -&gt; bytes:</span>
-<span class="c1">#     return requests.get(url).content</span>
+<span class="k">def</span> <span class="nf">_post_login_info</span><span class="p">(</span>
+    <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">,</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">_LoginPostParams</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">requests</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="n">_LOGIN_URL</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="n">params</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="login"><a class="viewcode-back" href="../../atcoder.html#atcoder.login.login">[docs]</a><span class="k">def</span> <span class="nf">login</span><span class="p">(</span>
+    <span class="n">credentials</span><span class="p">:</span> <span class="n">atcoder</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">LoginCredentials</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">:</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">_get_login_page</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">_scrape_csrf_token</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">_post_login_info</span><span class="p">(</span>
+        <span class="n">session</span><span class="p">,</span>
+        <span class="n">_LoginPostParams</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="n">credentials</span><span class="p">),</span>
+            <span class="n">csrf_token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">atcoder</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">_is_logged_in</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">atcoder</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">InvalidSessionError</span><span class="p">(</span>
+            <span class="s2">"Cannot login to atcoder.jp, please check your credentials."</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"login to atcoder: </span><span class="si">{</span><span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">responses</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">session</span></div>
 </pre></div>
         </article>
       </div>
