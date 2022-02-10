@@ -20,7 +20,7 @@ if __name__ == '__main__':
 """
 
 
-@pytest.mark.skip
+@pytest.mark.skip(reason="auth input needed")
 class Test(unittest.TestCase):
     def test_submit(self) -> None:
         credentials = atcoder.auth._input_login_credentials()
