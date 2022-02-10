@@ -17,7 +17,8 @@ python:
     # - requirements: requirements.txt
     - method: pip
       path: .
-      extra_requirements: []
+      extra_requirements:
+        - docs
   system_packages: false
 
 # you can choose either sphinx or mkdocs as document build tool.

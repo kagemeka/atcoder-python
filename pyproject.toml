@@ -40,7 +40,16 @@ requests = "^"
 selenium = "^"
 tqdm = "^"
 
+furo = {version = "^", optional = true}
+myst-parser = {version = "^", optional = true}
+sphinx = {version = "^", optional = true}
+
 [tool.poetry.extras]
+docs = [
+  "furo",
+  "sphinx",
+  "myst-parser",
+]
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^"
@@ -48,20 +57,14 @@ bandit = "^"
 black = "^"
 blacken-docs = "^"
 flake8 = "^"
-furo = "^"
 isort = "^"
 mypy = "^"
-myst-parser = "^"
-pdoc3 = "^"
 pre-commit = "^"
 pydocstyle = "^"
 pylint = "^"
 pyproject-flake8 = "^"
 pytest = "^"
 pytest-asyncio = "^"
-sphinx = "^"
-sphinx_rtd_theme = "^"
-sphinxcontrib-mermaid = "^"
 types-PyYAML = "^"
 types-requests = "^"
 types-setuptools = "^"
