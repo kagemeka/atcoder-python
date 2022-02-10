@@ -10,7 +10,7 @@ import atcoder.network
 
 
 class Test(unittest.TestCase):
-    @pytest.mark.skip
+    @pytest.mark.skip(reason="auth input needed")
     def test(self) -> None:
         async def wrap() -> None:
             cookies_path = "/tmp/cookies.json"

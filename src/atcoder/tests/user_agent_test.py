@@ -8,7 +8,7 @@ import atcoder.user_agent
 
 
 class Test(unittest.TestCase):
-    @pytest.mark.skip
+    @pytest.mark.skip(reason="auth input needed")
     def test(self) -> None:
         async def wrap() -> None:
             with atcoder.user_agent.UserSessionAgent(

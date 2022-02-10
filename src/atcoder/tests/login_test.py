@@ -15,7 +15,7 @@ logging.basicConfig(
 )
 
 
-@pytest.mark.skip
+@pytest.mark.skip(reason="auth input needed")
 class Test(unittest.TestCase):
     def test(self) -> None:
         credentials = atcoder.auth._input_login_credentials()
