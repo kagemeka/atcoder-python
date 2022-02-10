@@ -146,7 +146,7 @@ name = "beautifulsoup4"
 version = "4.10.0"
 description = "Screen-scraping library"
 category = "main"
-optional = true
+optional = false
 python-versions = ">3.0.0"
 
 [package.dependencies]
@@ -962,7 +962,7 @@ name = "soupsieve"
 version = "2.3.1"
 description = "A modern CSS selector implementation for Beautiful Soup."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 
 [[package]]
@@ -1270,7 +1270,7 @@ docs = ["furo", "sphinx", "myst-parser"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.11"
-content-hash = "2ede37a35cb5feb4b38745903ad8698bb67a164c6a5121baee243a0ec506cf53"
+content-hash = "c6dd55f62267f4fb2094d69c058e91bececfdfd350a0155d9517ea64f146b7a2"
 
 [metadata.files]
 aiodns = [
