@@ -1,6 +1,6 @@
 import atcoder
 
-project = "atcoder-api"
+project = "AtCoder"
 copyright = "2022, kagemeka"
 author = "kagemeka"
 version = atcoder.__version__

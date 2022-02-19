@@ -6,27 +6,27 @@ requires = ["poetry-core>=1.0.0"]
 authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 classifiers = []
 description = "AtCoder API."
-documentation = "https://atcoder-api-python.readthedocs.io"
+documentation = "https://atcoder.readthedocs.io"
 exclude = [
   "./**/tests/",
   "./**/*_test.py",
   "./**/test_*.py",
   "./**/_test_*.py",
 ]
-homepage = "https://atcoder-api-python.readthedocs.io"
+homepage = "https://atcoder.readthedocs.io"
 include = [
   "./**/src/languages.yaml",
 ]
 keywords = ["atcoder", "api"]
 license = "MIT"
 maintainers = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
-name = "atcoder-api"
+name = "atcoder"
 packages = [
   {include = "atcoder", from = "src"},
 ]
 readme = "README.md"
-repository = "https://github.com/competitive-programming-helper/atcoder-api"
-version = "0.3.4"
+repository = "https://github.com/kagemeka/atcoder-python"
+version = "0.1.0"
 
 [tool.poetry.dependencies]
 PyYAML = "^"
