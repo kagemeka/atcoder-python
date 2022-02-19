@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: cp-helper/atcoder-api:latest
+    image: kagemeka/$PROJECT:latest
     restart: on-failure
     tty: true
     volumes:
