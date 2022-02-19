@@ -1,13 +1,14 @@
+from __future__ import annotations
+
 import dataclasses
 import http
 import logging
-import typing
 
+import optext.option
 import requests
 
 import atcoder.auth
 import atcoder.scrape
-import atcoder.utils
 from atcoder.constant import _SITE_URL
 
 _LOGIN_URL = f"{_SITE_URL}/login"
@@ -22,7 +23,7 @@ class _LoginPostParams:
 
 
 def _get_login_page(
-    session: typing.Optional[requests.Session] = None,
+    session: requests.Session | None = None,
 ) -> requests.Response:
     if session is None:
         return requests.get(_LOGIN_URL)
@@ -31,7 +32,7 @@ def _get_login_page(
 
 def _scrape_csrf_token(html: str) -> str:
     soup = atcoder.scrape._parse_html(html)
-    return atcoder.utils._unwrap(
+    return optext.option.unwrap(
         atcoder.scrape._scrape_csrf_token_in_form(soup.find_all("form")[1])
     )
 

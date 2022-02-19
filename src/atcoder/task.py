@@ -1,6 +1,7 @@
+from __future__ import annotations
+
 import dataclasses
 import logging
-import typing
 
 import aiohttp
 import bs4
@@ -14,11 +15,11 @@ _LOGGER = logging.getLogger(__name__)
 @dataclasses.dataclass
 class Task:
     id: str
-    name: typing.Optional[str] = None
-    order: typing.Optional[str] = None  # A, B, ..., 001, 002, ...
-    contest_id: typing.Optional[str] = None
-    time_limit_ms: typing.Optional[int] = None
-    memory_limit_kb: typing.Optional[int] = None
+    name: str | None = None
+    order: str | None = None  # A, B, ..., 001, 002, ...
+    contest_id: str | None = None
+    time_limit_ms: int | None = None
+    memory_limit_kb: int | None = None
 
 
 async def _get_task_page(
@@ -40,7 +41,7 @@ async def _get_tasks_page(
     return await session.get(url)
 
 
-def _scrape_tasks(html: str) -> typing.List[Task]:
+def _scrape_tasks(html: str) -> list[Task]:
     contest = atcoder.contest._scrape_contest(html)
 
     def scrape_row(row: bs4.element.Tag) -> Task:

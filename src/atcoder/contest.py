@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 import dataclasses
 import datetime
@@ -38,7 +40,7 @@ _COLOR_FROM_STRING = {
 }
 
 
-def _color_from_string(color: str) -> typing.Optional[Color]:
+def _color_from_string(color: str) -> Color | None:
     return _COLOR_FROM_STRING.get(color)
 
 
@@ -53,10 +55,10 @@ class Status(enum.Enum):
 class Contest:
     id: str
     title: str
-    status: typing.Optional[Status] = None
-    color: typing.Optional[Color] = None
-    start_datetime: typing.Optional[datetime.datetime] = None
-    duration: typing.Optional[datetime.timedelta] = None
+    status: Status | None = None
+    color: Color | None = None
+    start_datetime: datetime.datetime | None = None
+    duration: datetime.timedelta | None = None
 
 
 async def _get_contest_page(
@@ -170,7 +172,7 @@ def _scrape_upcoming_contests(
         yield contest
 
 
-def _scrape_pagination(html: str) -> typing.Tuple[int, int]:
+def _scrape_pagination(html: str) -> tuple[int, int]:
     soup = atcoder.scrape._parse_html(html)
     pagination = soup.find(class_="pagination")
     current = int(pagination.find(class_="active").text)
