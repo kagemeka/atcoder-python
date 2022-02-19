@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import asyncio
 import dataclasses
 import datetime
 import enum
@@ -16,6 +15,7 @@ import requests
 import atcoder.auth
 import atcoder.contest
 import atcoder.language
+import atcoder.scrape
 
 _LOGGER = logging.getLogger(__name__)
 REQUEST_CHUNK_SIZE = 10
@@ -290,9 +290,7 @@ def _scrape_submission_statuses(html: str) -> list[str]:
     )
 
 
-def _scrape_pagination(
-    html: str,
-) -> tuple[int, int] | None:
+def _scrape_pagination(html: str) -> atcoder.scrape.Pagination | None:
     soup = atcoder.scrape._parse_html(html)
     pagination = soup.find(class_="pagination")
     if pagination is None:
@@ -304,7 +302,7 @@ def _scrape_pagination(
     _LOGGER.info(f"found {len(pages)} pages")
     current_page = int(pagination.find(class_="active").text)
     last_page = int(pages[-1].text)
-    return current_page, last_page
+    return atcoder.scrape.Pagination(current_page, last_page)
 
 
 def _scrape_submission_row(row: bs4.element.Tag) -> SubmissionResult:
@@ -342,107 +340,11 @@ def _scrape_submission_row(row: bs4.element.Tag) -> SubmissionResult:
     )
 
 
-def _scrape_submissions(
-    html: str,
-) -> typing.Iterator[SubmissionResult]:
+def _scrape_submissions(html: str) -> list[SubmissionResult] | None:
     soup = atcoder.scrape._parse_html(html)
-    table = soup.table
-    if table is None:
-        return
-    for row in table.tbody.find_all("tr"):
-        yield _scrape_submission_row(row)
-
-
-async def _get_submissions_pages(
-    session: aiohttp.ClientSession,
-    contest_id: str,
-    search_params: SubmissionsSearchParams | None = None,
-) -> typing.AsyncIterator[aiohttp.ClientResponse]:
-    response = await _get_submissions_page(
-        session,
-        contest_id,
-        search_params,
-        1,
-    )
-    pagination = _scrape_pagination(await response.text())
-    if pagination is None:
-        return
-    _, last_page = pagination
-    for i in range(1, last_page + 1, REQUEST_CHUNK_SIZE):
-        get_pages = [
-            asyncio.create_task(
-                _get_submissions_page(session, contest_id, search_params, page)
-            )
-            for page in range(i, min(i + REQUEST_CHUNK_SIZE, last_page + 1))
-        ]
-        await asyncio.sleep(REQUEST_INTERVAL_SEC)
-        for get_page in get_pages:
-            yield await get_page
-
-
-def _get_my_submissions_pages(
-    session: requests.Session,
-    contest_id: str,
-    search_params: SubmissionsSearchParams | None = None,
-) -> typing.Iterator[requests.Response]:
-    response = _get_my_submissions_page(session, contest_id, search_params, 1)
-    pagination = _scrape_pagination(response.text)
-    if pagination is None:
-        return
-    _, last_page = pagination
-    for page in range(1, last_page + 1):
-        yield _get_my_submissions_page(
-            session,
-            contest_id,
-            search_params,
-            page,
-        )
-
-
-async def _fetch_submission_results(
-    session: aiohttp.ClientSession,
-    contest_id: str,
-    params: SubmissionsSearchParams | None = None,
-    page: int | None = None,
-) -> typing.AsyncIterator[SubmissionResult]:
-    response = await _get_submissions_page(session, contest_id, params, page)
-    _LOGGER.info(f"fetch: submissions for {contest_id} page: {page}.")
-    for submission in _scrape_submissions(await response.text()):
-        yield submission
-
-
-async def fetch_all_submission_results(
-    session: aiohttp.ClientSession,
-    contest_id: str,
-    params: SubmissionsSearchParams | None = None,
-) -> typing.AsyncIterator[SubmissionResult]:
-    async for response in _get_submissions_pages(session, contest_id, params):
-        for submission in _scrape_submissions(await response.text()):
-            yield submission
-
-
-def _fetch_my_submission_results(
-    session: requests.Session,
-    contest_id: str,
-    params: SubmissionsSearchParams | None = None,
-    page: int | None = None,
-) -> typing.Iterator[SubmissionResult]:
-    if not atcoder.auth._is_logged_in(session):
-        raise atcoder.auth.InvalidSessionError
-    response = _get_my_submissions_page(session, contest_id, params, page)
-    _LOGGER.info(f"fetch: submissions for {contest_id}.")
-    for submission in _scrape_submissions(response.text):
-        yield submission
-
-
-def fetch_all_my_submission_results(
-    session: requests.Session,
-    contest_id: str,
-    params: SubmissionsSearchParams | None = None,
-) -> typing.Iterator[SubmissionResult]:
-    for response in _get_my_submissions_pages(session, contest_id, params):
-        for submission in _scrape_submissions(response.text):
-            yield submission
+    if soup.table is None:
+        return None
+    return [_scrape_submission_row(row) for row in soup.tbody.find_all("tr")]
 
 
 async def fetch_submission_details(
@@ -454,17 +356,78 @@ async def fetch_submission_details(
     return _scrape_submission_result(await response.text())
 
 
-async def _fetch_submission_results_page_count(
+async def _fetch_submissions_page_count(
     session: aiohttp.ClientSession,
     contest_id: str,
     params: SubmissionsSearchParams | None = None,
 ) -> int:
     response = await _get_submissions_page(session, contest_id, params)
     pagination = _scrape_pagination(await response.text())
-    if pagination is None:
-        return 0
-    _, last_page = pagination
-    return last_page
+    return 0 if pagination is None else pagination.last
+
+
+async def fetch_submissions(
+    session: aiohttp.ClientSession,
+    contest_id: str,
+    params: SubmissionsSearchParams | None = None,
+    page: int | None = None,
+) -> list[SubmissionResult] | None:
+    response = await _get_submissions_page(session, contest_id, params, page)
+    _LOGGER.info(f"fetch: submissions for {contest_id} page: {page}.")
+    return _scrape_submissions(await response.text())
+
+
+async def fetch_all_submissions(
+    session: aiohttp.ClientSession,
+    contest_id: str,
+    params: SubmissionsSearchParams | None = None,
+) -> typing.AsyncIterator[SubmissionResult]:
+    page = 1
+    while True:
+        submissions = await fetch_submissions(
+            session,
+            contest_id,
+            params,
+            page,
+        )
+        if submissions is None:
+            return
+        for submission in submissions:
+            yield submission
+        page += 1
+
+
+def fetch_my_submissions(
+    session: requests.Session,
+    contest_id: str,
+    params: SubmissionsSearchParams | None = None,
+    page: int | None = None,
+) -> list[SubmissionResult] | None:
+    if not atcoder.auth._is_logged_in(session):
+        raise atcoder.auth.InvalidSessionError
+    response = _get_my_submissions_page(session, contest_id, params, page)
+    _LOGGER.info(f"fetch: submissions for {contest_id}.")
+    return _scrape_submissions(response.text)
+
+
+def fetch_all_my_submissions(
+    session: requests.Session,
+    contest_id: str,
+    params: SubmissionsSearchParams | None = None,
+) -> typing.Iterator[SubmissionResult]:
+    page = 1
+    while True:
+        submissions = fetch_my_submissions(
+            session,
+            contest_id,
+            params,
+            page,
+        )
+        if submissions is None:
+            return
+        for submission in submissions:
+            yield submission
+        page += 1
 
 
 if __name__ == "__main__":

@@ -15,8 +15,12 @@ class Test(unittest.TestCase):
                 credentials=atcoder.auth._input_login_credentials(),
             ) as user:
                 print(user.fetch_languages())
-                for submissions in user.fetch_my_submissions("abc001"):
-                    print(submissions)
+                cnt = 0
+                for submission in user.fetch_my_submissions("abc001"):
+                    print(submission)
+                    ...
+                    cnt += 1
+                print(cnt)
 
         asyncio.run(wrap())
 

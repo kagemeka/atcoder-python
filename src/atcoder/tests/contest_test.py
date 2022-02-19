@@ -24,7 +24,8 @@ class Test(unittest.TestCase):
                     session,
                 ):
                     contests.append(contest)
-                self.assertTrue(len(contests) >= 875)  # 2022-02-08
+                print(len(contests))
+                self.assertTrue(len(contests) >= 880)  # 2022-02-20
 
         asyncio.run(wrap())
 

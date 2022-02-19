@@ -76,7 +76,7 @@ class UserSessionAgent:
     ) -> typing.Iterator[atcoder.submission.SubmissionResult]:
         self.__update_session()
         assert self.__session is not None
-        yield from atcoder.submission.fetch_all_my_submission_results(
+        yield from atcoder.submission.fetch_all_my_submissions(
             self.__session,
             contest_id,
             params,

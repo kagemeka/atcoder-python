@@ -42,7 +42,7 @@ async def _get_tasks_page(
 
 
 def _scrape_tasks(html: str) -> list[Task]:
-    contest = atcoder.contest._scrape_contest(html)
+    contest = atcoder.contest.scrape_contest(html)
 
     def scrape_row(row: bs4.element.Tag) -> Task:
         infos = row.find_all("td")
