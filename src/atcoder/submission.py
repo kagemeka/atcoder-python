@@ -172,15 +172,12 @@ def _scrape_judge_results(
     if len(tables) <= 3:  # no judge results.
         return None
     table = tables[-1]
-    table.rename(
-        columns={
-            "Case Name": "case_name",
-            "Status": "status",
-            "Exec Time": "exec_time_ms",
-            "Memory": "memory_usage_kb",
-        },
-        inplace=True,
-    )
+    table.columns = [
+        'case_name',
+        'status',
+        'exec_time_ms',
+        'memory_usage_kb',
+    ]
     table["exec_time_ms"] = table["exec_time_ms"].map(
         atcoder.scrape._strip_unit
     )
