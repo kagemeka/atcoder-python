@@ -97,11 +97,11 @@ verbose = true
 
 [tool.autopep8]
 # github: https://github.com/hhatto/autopep8
-aggressive = 3 
+aggressive = 3
 ignore = "E501,W6" # or ["E501", "W6"]
-in-place = true 
-max_line_length = 79 
-recursive = true 
+in-place = true
+max_line_length = 79
+recursive = true
 
 [tool.isort]
 # github: https://github.com/PyCQA/isort
@@ -117,15 +117,15 @@ line_length = 79
 # github: https://github.com/PyCQA/flake8
 # docs: https://flake8.pycqa.org/en/latest/
 # options: https://flake8.pycqa.org/en/latest/user/options.html
-count = 'true' 
-exclude = ["docs/", "scripts/"] 
-exit_zero = 'true' 
-ignore = 'E203' 
+count = 'true'
+exclude = ["docs/", "scripts/"]
+exit_zero = 'true'
+ignore = 'E203'
 max_complexity = 3 # https://en.wikipedia.org/wiki/Cyclomatic_complexity
-max_line_length = 79 
-show_source = 'true' 
-statistics = 'true' 
-verbose = 'true' 
+max_line_length = 79
+show_source = 'true'
+statistics = 'true'
+verbose = 'true'
 
 # TYPE CHECKING ------------------------------------------------------------------------------
 [tool.mypy]
