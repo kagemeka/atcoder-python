@@ -11,5 +11,5 @@ def find_docs_root() -> str:
 
 
 sys.path.append(find_docs_root())
-from _rtd_conf import *
 from _sphinx_conf import *
+from _rtd_conf import *

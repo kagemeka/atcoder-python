@@ -70,17 +70,12 @@ async def _get_contest_page(
     return await session.get(url)
 
 
-async def _get_archive_page(
-    session: aiohttp.ClientSession,
-    page: int,
-) -> aiohttp.ClientResponse:
-    _LOGGER.info(f"get {_CONTESTS_ARCHIVE_URL}, page: {page}")
-    return await session.get(
-        url=_CONTESTS_ARCHIVE_URL,
-        params={
-            "page": page,
-            "lang": _LANGUAGE,
-        },
+def scrape_contest(html: str) -> Contest:
+    soup = atcoder.scrape._parse_html(html)
+    section = soup.find(class_="contest-title")
+    return Contest(
+        id=section.get("href").split("/")[-1],
+        title=section.text,
     )
 
 
@@ -94,12 +89,17 @@ async def _get_contests_page(
     )
 
 
-def _scrape_contest(html: str) -> Contest:
-    soup = atcoder.scrape._parse_html(html)
-    section = soup.find(class_="contest-title")
-    return Contest(
-        id=section.get("href").split("/")[-1],
-        title=section.text,
+async def _get_archive_page(
+    session: aiohttp.ClientSession,
+    page: int,
+) -> aiohttp.ClientResponse:
+    _LOGGER.info(f"get {_CONTESTS_ARCHIVE_URL}, page: {page}")
+    return await session.get(
+        url=_CONTESTS_ARCHIVE_URL,
+        params={
+            "page": page,
+            "lang": _LANGUAGE,
+        },
     )
 
 
@@ -124,22 +124,20 @@ def _scrape_row(row: bs4.element.Tag) -> Contest:
     )
 
 
-def _scrape_running_contests(
-    html: str,
-) -> typing.Iterator[Contest]:
+def _scrape_running_contests(html: str) -> list[Contest] | None:
     soup = atcoder.scrape._parse_html(html)
     section = soup.find(id="contest-table-action")
     if section is None:
-        return
+        return None
+    contests = []
     for row in section.table.tbody.find_all("tr"):
         contest = _scrape_row(row)
         contest.status = Status.RUNNING
-        yield contest
+        contests.append(contest)
+    return contests
 
 
-def _scrape_permanent_contests(
-    html: str,
-) -> typing.Iterator[Contest]:
+def _scrape_permanent_contests(html: str) -> list[Contest] | None:
     def scrape_row(row: bs4.element.Tag) -> Contest:
         infos = row.find_all("td")
         color_texts = infos[0].span.get("class")
@@ -154,73 +152,77 @@ def _scrape_permanent_contests(
     soup = atcoder.scrape._parse_html(html)
     section = soup.find(id="contest-table-permanent")
     if section is None:
-        return
-    for row in section.table.tbody.find_all("tr"):
-        yield scrape_row(row)
+        return None
+    return [scrape_row(row) for row in section.table.tbody.find_all("tr")]
 
 
-def _scrape_upcoming_contests(
-    html: str,
-) -> typing.Iterator[Contest]:
+def _scrape_upcoming_contests(html: str) -> list[Contest] | None:
     soup = atcoder.scrape._parse_html(html)
     section = soup.find(id="contest-table-upcoming")
     if section is None:
-        return
+        return None
+    contests = []
     for row in section.table.tbody.find_all("tr"):
         contest = _scrape_row(row)
         contest.status = Status.UPCOMING
-        yield contest
+        contests.append(contest)
+    return contests
 
 
-def _scrape_pagination(html: str) -> tuple[int, int]:
+def _scrape_pagination(html: str) -> atcoder.scrape.Pagination:
     soup = atcoder.scrape._parse_html(html)
     pagination = soup.find(class_="pagination")
     current = int(pagination.find(class_="active").text)
     last = int(pagination.find_all("li")[-1].text)
-    return current, last
+    return atcoder.scrape.Pagination(current, last)
 
 
-def _scrape_finished_contests(
-    html: str,
-) -> typing.Iterator[Contest]:
+def _scrape_finished_contests(html: str) -> list[Contest] | None:
     soup = atcoder.scrape._parse_html(html)
     if soup.table is None:
-        return
+        return None
+    contests = []
     for row in soup.table.tbody.find_all("tr"):
         contest = _scrape_row(row)
         contest.status = Status.FINISHED
-        yield contest
+        contests.append(contest)
+    return contests
 
 
-async def _get_archive_pages(
+async def fetch_finished_contests(
     session: aiohttp.ClientSession,
-) -> typing.AsyncIterator[aiohttp.ClientResponse]:
-    response = await _get_archive_page(session, 1)
-    _, last_page = _scrape_pagination(await response.text())
-    get_pages = [
-        asyncio.create_task(_get_archive_page(session, i))
-        for i in range(1, last_page + 1)
-    ]
-    for response in await asyncio.gather(*get_pages):
-        yield response
-    # for get_page in get_pages:
-    #     yield await get_page
+    page: int,
+) -> list[Contest] | None:
+    response = await _get_archive_page(session, page)
+    return _scrape_finished_contests(await response.text())
 
 
 async def fetch_all_contests(
     session: aiohttp.ClientSession,
 ) -> typing.AsyncIterator[Contest]:
     get = asyncio.create_task(_get_contests_page(session))
-    async for response in _get_archive_pages(session):
-        for contest in _scrape_finished_contests(await response.text()):
-            yield contest
     html = await (await get).text()
-    for contest in _scrape_upcoming_contests(html):
-        yield contest
-    for contest in _scrape_running_contests(html):
-        yield contest
-    for contest in _scrape_permanent_contests(html):
-        yield contest
+    contests = _scrape_upcoming_contests(html)
+    if contests is not None:
+        for contest in contests:
+            yield contest
+    contests = _scrape_running_contests(html)
+    if contests is not None:
+        for contest in contests:
+            yield contest
+    contests = _scrape_permanent_contests(html)
+    if contests is not None:
+        for contest in contests:
+            yield contest
+
+    page = 1
+    while True:
+        contests = await fetch_finished_contests(session, page)
+        if contests is None:
+            return
+        for contest in contests:
+            yield contest
+        page += 1
 
 
 # async def fetch_contest_details() -> None:

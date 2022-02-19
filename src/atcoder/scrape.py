@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import dataclasses
 import typing
 
 import bs4
@@ -43,3 +44,9 @@ def _scrape_csrf_token_in_form(
         str,
         section.get("value"),
     )
+
+
+@dataclasses.dataclass
+class Pagination:
+    current: int
+    last: int

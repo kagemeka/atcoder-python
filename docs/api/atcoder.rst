@@ -25,7 +25,6 @@ Submodules
    atcoder.top
    atcoder.user
    atcoder.user_agent
-   atcoder.utils
 
 Module contents
 ---------------
