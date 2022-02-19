@@ -13,7 +13,7 @@ exclude = [
   "./**/test_*.py",
   "./**/_test_*.py",
 ]
-homepage = "https://github.com/kagemeka/atcoder-python#readme"
+homepage = "https://kagemeka.github.io/atcoder-python"
 include = [
   "./**/src/languages.yaml",
 ]
@@ -26,7 +26,7 @@ packages = [
 ]
 readme = "README.md"
 repository = "https://github.com/kagemeka/atcoder-python"
-version = "0.1.0"
+version = "0.1.1"
 
 [tool.poetry.dependencies]
 PyYAML = "^"
