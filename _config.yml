@@ -1,0 +1,16 @@
+title: AtCoder Python
+description: AtCoder API for Python
+theme: jekyll-theme-cayman
+# remote_theme: pmarsceill/just-the-docs
+# https://github.com/topics/jekyll-theme
+url: https://kagemeka.github.io
+lsi: false
+safe: true
+source: [.]
+incremental: false
+highlighter: rouge
+gist:
+  noscript: false
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
