@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import dataclasses
 import json
 import os
@@ -45,5 +47,5 @@ def _is_logged_in(session: requests.Session) -> bool:
 class InvalidSessionError(Exception):
     DEFAULT_MESSAGE = "Your login session is invalid. please relogin."
 
-    def __init__(self, message: typing.Optional[str] = None) -> None:
+    def __init__(self, message: str | None = None) -> None:
         super().__init__(self.DEFAULT_MESSAGE if message is None else message)

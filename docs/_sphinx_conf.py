@@ -43,7 +43,7 @@ class _HtmlTheme(enum.Enum):
 
 html_theme = _HtmlTheme.FURO.value
 
-html_theme_path: typing.List[str] = [
+html_theme_path: list[str] = [
     sphinx_theme_pd.get_html_theme_path(),
 ]
 # relative to conf.py

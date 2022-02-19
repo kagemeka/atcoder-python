@@ -15,7 +15,7 @@ def _strip_unit(measured_value: str) -> int:
 def _scrape_html_options(
     html: str,
     id_in_html: str,
-) -> typing.Optional[typing.List[str]]:
+) -> list[str] | None:
     soup = _parse_html(html)
     section = soup.find("select", id=id_in_html)
     if section is None:
@@ -33,7 +33,7 @@ def _scrape_html_options(
 
 def _scrape_csrf_token_in_form(
     form: bs4.element.Tag,
-) -> typing.Optional[str]:
+) -> str | None:
     section = form.find(attrs={"name": "csrf_token"})
     if section is None:
         return None

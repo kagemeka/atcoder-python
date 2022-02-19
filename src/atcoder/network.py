@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import typing
 
@@ -7,10 +9,10 @@ import requests.cookies
 
 def _cookies_to_dict(
     cookiejar: requests.cookies.RequestsCookieJar,
-) -> typing.Dict[str, typing.Optional[str]]:
+) -> dict[str, str | None]:
     import http.cookiejar
 
-    cookies: typing.List[http.cookiejar.Cookie] = list(cookiejar)
+    cookies: list[http.cookiejar.Cookie] = list(cookiejar)
     return {cookie.name: cookie.value for cookie in cookies}
 
 
@@ -38,7 +40,7 @@ def _load_cookies(
 
     assert os.path.exists(json_filepath)
     with open(file=json_filepath, mode="r") as f:
-        cookies_dict: typing.Dict[str, typing.Optional[str]] = json.load(f)
+        cookies_dict: dict[str, str | None] = json.load(f)
     return typing.cast(
         requests.cookies.RequestsCookieJar,
         requests.cookies.cookiejar_from_dict(cookies_dict),

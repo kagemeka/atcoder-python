@@ -1,3 +1,4 @@
+from __future__ import annotations
 import dataclasses
 import logging
 import typing
@@ -58,7 +59,7 @@ def _post_submission(
     )
 
 
-def _scrape_task_ids(html: str) -> typing.List[str]:
+def _scrape_task_ids(html: str) -> list[str]:
     return atcoder.utils._unwrap(
         atcoder.scrape._scrape_html_options(html, "select-task")
     )
@@ -84,7 +85,7 @@ def _parse_language(section: bs4.Tag) -> atcoder.language.Language:
 
 def _scrape_languages(
     html: str,
-) -> typing.List[atcoder.language.Language]:
+) -> list[atcoder.language.Language]:
     soup = atcoder.scrape._parse_html(html)
     form = soup.find_all("form")[1]
     section = form.find(id="select-lang").div
@@ -116,7 +117,7 @@ def submit_task(
 
 def fetch_languages(
     session: requests.Session,
-) -> typing.List[atcoder.language.Language]:
+) -> list[atcoder.language.Language]:
     if not atcoder.auth._is_logged_in(session):
         raise atcoder.auth.InvalidSessionError
     response = _get_submit_page(session, "abc001")

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 import dataclasses
 import datetime
@@ -35,7 +37,7 @@ class SubmissionStatus(enum.Enum):
     JUDGING = enum.auto()
 
 
-def _status_from_str(status: str) -> typing.Optional[SubmissionStatus]:
+def _status_from_str(status: str) -> SubmissionStatus | None:
     return SubmissionStatus.__members__.get(status.upper())
 
 
@@ -86,21 +88,21 @@ class Summary:
     score: int
     code_size_kb: int
     status: SubmissionStatus
-    exec_time_ms: typing.Optional[int] = None
-    memory_usage_kb: typing.Optional[int] = None
+    exec_time_ms: int | None = None
+    memory_usage_kb: int | None = None
 
 
 @dataclasses.dataclass(frozen=True)
 class Details:
     code: str
-    judge_results: typing.Optional[typing.List[JudgeResult]] = None
+    judge_results: list[JudgeResult] | None = None
 
 
 @dataclasses.dataclass
 class SubmissionResult:
     id: int
     summary: Summary
-    details: typing.Optional[Details] = None
+    details: Details | None = None
 
 
 async def _get_submission_page(
@@ -165,7 +167,7 @@ def _scrape_code(html: str) -> str:
 
 def _scrape_judge_results(
     html: str,
-) -> typing.Optional[typing.List[JudgeResult]]:
+) -> list[JudgeResult] | None:
     tables = pd.read_html(html)
     if len(tables) <= 3:  # no judge results.
         return None
@@ -207,14 +209,14 @@ def _scrape_submission_result(html: str) -> SubmissionResult:
 
 @dataclasses.dataclass
 class SubmissionsSearchParams:
-    task_id: typing.Optional[str] = None
-    language_category: typing.Optional[str] = None
-    language_id: typing.Optional[int] = None
-    status: typing.Optional[str] = None
-    username: typing.Optional[str] = None
+    task_id: str | None = None
+    language_category: str | None = None
+    language_id: int | None = None
+    status: str | None = None
+    username: str | None = None
 
 
-_TO_URL_PARAMS: typing.Final[typing.Dict[str, str]] = {
+_TO_URL_PARAMS: typing.Final[dict[str, str]] = {
     "task_id": "f.Task",
     "language_category": "f.LanguageName",
     "language_id": "f.Language",
@@ -223,15 +225,15 @@ _TO_URL_PARAMS: typing.Final[typing.Dict[str, str]] = {
 }
 
 
-def _to_url_param(param: str) -> typing.Optional[str]:
+def _to_url_param(param: str) -> str | None:
     return _TO_URL_PARAMS.get(param)
 
 
 def _make_url_params(
-    search_params: typing.Optional[SubmissionsSearchParams] = None,
-    page: typing.Optional[int] = None,
-) -> typing.Dict[str, typing.Union[str, int]]:
-    url_params: typing.Dict[str, typing.Union[str, int]] = dict()
+    search_params: SubmissionsSearchParams | None = None,
+    page: int | None = None,
+) -> dict[str, str | int]:
+    url_params: dict[str, str | int] = dict()
     if search_params is not None:
         for param, value in dataclasses.asdict(search_params).items():
             if value is None:
@@ -245,8 +247,8 @@ def _make_url_params(
 async def _get_submissions_page(
     session: aiohttp.ClientSession,
     contest_id: str,
-    search_params: typing.Optional[SubmissionsSearchParams] = None,
-    page: typing.Optional[int] = None,
+    search_params: SubmissionsSearchParams | None = None,
+    page: int | None = None,
 ) -> aiohttp.ClientResponse:
     url = f"{atcoder.contest._CONTESTS_URL}/{contest_id}/submissions"
     _LOGGER.info(f"get {url}, page: {page}")
@@ -259,8 +261,8 @@ async def _get_submissions_page(
 def _get_my_submissions_page(
     session: requests.Session,
     contest_id: str,
-    search_params: typing.Optional[SubmissionsSearchParams] = None,
-    page_id: typing.Optional[int] = None,
+    search_params: SubmissionsSearchParams | None = None,
+    page_id: int | None = None,
 ) -> requests.Response:
     url = f"{atcoder.contest._CONTESTS_URL}/{contest_id}/submissions/me"
     _LOGGER.info(f"get {url}")
@@ -270,19 +272,19 @@ def _get_my_submissions_page(
     )
 
 
-def _scrape_task_ids(html: str) -> typing.List[str]:
+def _scrape_task_ids(html: str) -> list[str]:
     return atcoder.utils._unwrap(
         atcoder.scrape._scrape_html_options(html, "select-task")
     )
 
 
-def _scrape_language_categories(html: str) -> typing.List[str]:
+def _scrape_language_categories(html: str) -> list[str]:
     return atcoder.utils._unwrap(
         atcoder.scrape._scrape_html_options(html, "select-language")
     )
 
 
-def _scrape_submission_statuses(html: str) -> typing.List[str]:
+def _scrape_submission_statuses(html: str) -> list[str]:
     return atcoder.utils._unwrap(
         atcoder.scrape._scrape_html_options(html, "select-status")
     )
@@ -290,7 +292,7 @@ def _scrape_submission_statuses(html: str) -> typing.List[str]:
 
 def _scrape_pagination(
     html: str,
-) -> typing.Optional[typing.Tuple[int, int]]:
+) -> tuple[int, int] | None:
     soup = atcoder.scrape._parse_html(html)
     pagination = soup.find(class_="pagination")
     if pagination is None:
@@ -354,7 +356,7 @@ def _scrape_submissions(
 async def _get_submissions_pages(
     session: aiohttp.ClientSession,
     contest_id: str,
-    search_params: typing.Optional[SubmissionsSearchParams] = None,
+    search_params: SubmissionsSearchParams | None = None,
 ) -> typing.AsyncIterator[aiohttp.ClientResponse]:
     response = await _get_submissions_page(
         session,
@@ -381,7 +383,7 @@ async def _get_submissions_pages(
 def _get_my_submissions_pages(
     session: requests.Session,
     contest_id: str,
-    search_params: typing.Optional[SubmissionsSearchParams] = None,
+    search_params: SubmissionsSearchParams | None = None,
 ) -> typing.Iterator[requests.Response]:
     response = _get_my_submissions_page(session, contest_id, search_params, 1)
     pagination = _scrape_pagination(response.text)
@@ -400,8 +402,8 @@ def _get_my_submissions_pages(
 async def _fetch_submission_results(
     session: aiohttp.ClientSession,
     contest_id: str,
-    params: typing.Optional[SubmissionsSearchParams] = None,
-    page: typing.Optional[int] = None,
+    params: SubmissionsSearchParams | None = None,
+    page: int | None = None,
 ) -> typing.AsyncIterator[SubmissionResult]:
     response = await _get_submissions_page(session, contest_id, params, page)
     _LOGGER.info(f"fetch: submissions for {contest_id} page: {page}.")
@@ -412,7 +414,7 @@ async def _fetch_submission_results(
 async def fetch_all_submission_results(
     session: aiohttp.ClientSession,
     contest_id: str,
-    params: typing.Optional[SubmissionsSearchParams] = None,
+    params: SubmissionsSearchParams | None = None,
 ) -> typing.AsyncIterator[SubmissionResult]:
     async for response in _get_submissions_pages(session, contest_id, params):
         for submission in _scrape_submissions(await response.text()):
@@ -422,8 +424,8 @@ async def fetch_all_submission_results(
 def _fetch_my_submission_results(
     session: requests.Session,
     contest_id: str,
-    params: typing.Optional[SubmissionsSearchParams] = None,
-    page: typing.Optional[int] = None,
+    params: SubmissionsSearchParams | None = None,
+    page: int | None = None,
 ) -> typing.Iterator[SubmissionResult]:
     if not atcoder.auth._is_logged_in(session):
         raise atcoder.auth.InvalidSessionError
@@ -436,7 +438,7 @@ def _fetch_my_submission_results(
 def fetch_all_my_submission_results(
     session: requests.Session,
     contest_id: str,
-    params: typing.Optional[SubmissionsSearchParams] = None,
+    params: SubmissionsSearchParams | None = None,
 ) -> typing.Iterator[SubmissionResult]:
     for response in _get_my_submissions_pages(session, contest_id, params):
         for submission in _scrape_submissions(response.text):
@@ -455,7 +457,7 @@ async def fetch_submission_details(
 async def _fetch_submission_results_page_count(
     session: aiohttp.ClientSession,
     contest_id: str,
-    params: typing.Optional[SubmissionsSearchParams] = None,
+    params: SubmissionsSearchParams | None = None,
 ) -> int:
     response = await _get_submissions_page(session, contest_id, params)
     pagination = _scrape_pagination(await response.text())

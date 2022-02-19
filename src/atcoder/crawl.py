@@ -4,7 +4,7 @@
 
 # async def request_get(
 #     url: str,
-#     session: typing.Optional[aiohttp.ClientSession] = None,
+#     session: aiohttp.ClientSession | None = None,
 # ) -> aiohttp.client_reqrep.ClientResponse:
 #     if session is None:
 #         session = aiohttp.ClientSession()
@@ -12,7 +12,7 @@
 #         return await session.get(url)
 
 
-# async def _request_post(url: str, payload: typing.Dict) -> None:
+# async def _request_post(url: str, payload: dict) -> None:
 #     ...
 
 

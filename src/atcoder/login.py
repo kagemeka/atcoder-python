@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import dataclasses
 import http
 import logging
@@ -22,7 +24,7 @@ class _LoginPostParams:
 
 
 def _get_login_page(
-    session: typing.Optional[requests.Session] = None,
+    session: requests.Session | None = None,
 ) -> requests.Response:
     if session is None:
         return requests.get(_LOGIN_URL)

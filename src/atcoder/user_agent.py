@@ -17,7 +17,7 @@ _LOGGER = logging.getLogger(__name__)
 
 class UserSessionAgent:
     __credentials: atcoder.auth.LoginCredentials
-    __session: typing.Optional[requests.Session] = None
+    __session: requests.Session | None = None
 
     def __init__(
         self,
@@ -30,9 +30,9 @@ class UserSessionAgent:
 
     def __exit__(
         self,
-        __exc_type: typing.Optional[type[BaseException]] = None,
-        __exc_val: typing.Optional[BaseException] = None,
-        __exc_tb: typing.Optional[types.TracebackType] = None,
+        __exc_type: type[BaseException] | None = None,
+        __exc_val: BaseException | None = None,
+        __exc_tb: types.TracebackType | None = None,
     ) -> None:
         if self.__session is not None:
             self.__session.close()
@@ -64,7 +64,7 @@ class UserSessionAgent:
             language_id,
         )
 
-    def fetch_languages(self) -> typing.List[atcoder.language.Language]:
+    def fetch_languages(self) -> list[atcoder.language.Language]:
         self.__update_session()
         assert self.__session is not None
         return atcoder.submit.fetch_languages(self.__session)
@@ -72,9 +72,7 @@ class UserSessionAgent:
     def fetch_my_submissions(
         self,
         contest_id: str,
-        params: typing.Optional[
-            atcoder.submission.SubmissionsSearchParams
-        ] = None,
+        params: atcoder.submission.SubmissionsSearchParams | None = None,
     ) -> typing.Iterator[atcoder.submission.SubmissionResult]:
         self.__update_session()
         assert self.__session is not None

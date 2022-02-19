@@ -1,3 +1,4 @@
+from __future__ import annotations
 import dataclasses
 import logging
 import typing
@@ -12,21 +13,16 @@ class Language:
     id: int
     text: str
     name: str
-    compiler_or_runtime: typing.Optional[str] = None
-    version: typing.Optional[str] = None
-    compile_to: typing.Optional[str] = None
-    category: typing.Optional[str] = None
-    file_extensions: typing.Optional[typing.List[str]] = None
+    compiler_or_runtime: str | None = None
+    version: str | None = None
+    compile_to: str | None = None
+    category: str | None = None
+    file_extensions: list[str] | None = None
 
 
 def _parse_language_text(
     language_text: str,
-) -> typing.Tuple[
-    str,
-    typing.Optional[str],
-    typing.Optional[str],
-    typing.Optional[str],
-]:
+) -> tuple[str, str | None, str | None, str | None]:
     import re
 
     pattern = re.compile(r"^(.+)\s+\(((.+)\s+)?(.+)\)(;\s+(.+))?.*$")
@@ -42,7 +38,7 @@ def _parse_language_text(
     )
 
 
-def _download_languages() -> typing.Optional[typing.List[Language]]:
+def _download_languages() -> list[Language] | None:
     import pprint
 
     import requests
@@ -65,17 +61,13 @@ def _download_languages() -> typing.Optional[typing.List[Language]]:
     return languages
 
 
-# _LANGUAGES: typing.Optional[typing.List[Language]] = None
-# # _LANGUAGES_TO_ID
 _LANGUAGES = atcoder.utils._unwrap(_download_languages())
 
 
-_LANGUAGE_FROM_TEXT: typing.Optional[typing.Dict[str, Language]] = None
+_LANGUAGE_FROM_TEXT: dict[str, Language] | None = None
 
 
-def _language_from_text(
-    language_text: str,
-) -> typing.Optional[Language]:
+def _language_from_text(language_text: str) -> Language | None:
     global _LANGUAGE_FROM_TEXT
     if _LANGUAGE_FROM_TEXT is None:
         _LANGUAGE_FROM_TEXT = {
@@ -84,12 +76,10 @@ def _language_from_text(
     return _LANGUAGE_FROM_TEXT.get(language_text)
 
 
-_LANGUAGE_FROM_NAME: typing.Optional[typing.Dict[str, Language]] = None
+_LANGUAGE_FROM_NAME: dict[str, Language] | None = None
 
 
-def _language_from_name(
-    language_name: str,
-) -> typing.Optional[Language]:
+def _language_from_name(language_name: str) -> Language | None:
     global _LANGUAGE_FROM_NAME
     if _LANGUAGE_FROM_NAME is None:
         _LANGUAGE_FROM_NAME = {
@@ -98,12 +88,12 @@ def _language_from_name(
     return _LANGUAGE_FROM_NAME.get(language_name)
 
 
-_LANGUAGE_FROM_COMPILER: typing.Optional[typing.Dict[str, Language]] = None
+_LANGUAGE_FROM_COMPILER: dict[str, Language] | None = None
 
 
 def _language_from_compiler(
     compiler_or_runtime: str,
-) -> typing.Optional[Language]:
+) -> Language | None:
     global _LANGUAGE_FROM_COMPILER
     if _LANGUAGE_FROM_COMPILER is None:
         _LANGUAGE_FROM_COMPILER = {
