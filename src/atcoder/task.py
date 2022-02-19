@@ -1,7 +1,7 @@
 from __future__ import annotations
+
 import dataclasses
 import logging
-import typing
 
 import aiohttp
 import bs4

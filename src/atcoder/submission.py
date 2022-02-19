@@ -9,13 +9,13 @@ import typing
 
 import aiohttp
 import bs4
+import optext.option
 import pandas as pd
 import requests
 
 import atcoder.auth
 import atcoder.contest
 import atcoder.language
-import atcoder.utils
 
 _LOGGER = logging.getLogger(__name__)
 REQUEST_CHUNK_SIZE = 10
@@ -66,7 +66,7 @@ def _parse_language(language_text: str) -> atcoder.language.Language:
         return language
     if compiler_or_runtime is None:
         raise LanguageParseError
-    return atcoder.utils._unwrap(
+    return optext.option.unwrap(
         atcoder.language._language_from_compiler(compiler_or_runtime),
     )
 
@@ -123,7 +123,7 @@ def _scrape_id(html: str) -> int:
 
     soup = atcoder.scrape._parse_html(html)
     match = re.match(r"^.*\#(\d+).*$", soup.find(class_="h2").text)
-    return int(atcoder.utils._unwrap(match).group(1))
+    return int(optext.option.unwrap(match).group(1))
 
 
 def _scrape_summary(html: str) -> Summary:
@@ -135,7 +135,7 @@ def _scrape_summary(html: str) -> Summary:
     if soup.table.find(class_="waiting-judge") is not None:
         status = SubmissionStatus.WJ
     else:
-        status = atcoder.utils._unwrap(
+        status = optext.option.unwrap(
             _status_from_str(infos[6].td.text.split()[-1]),
         )
     if len(infos) == 9:
@@ -238,7 +238,7 @@ def _make_url_params(
         for param, value in dataclasses.asdict(search_params).items():
             if value is None:
                 continue
-            url_params[atcoder.utils._unwrap(_to_url_param(param))] = value
+            url_params[optext.option.unwrap(_to_url_param(param))] = value
     if page is not None:
         url_params["page"] = page
     return url_params
@@ -273,19 +273,19 @@ def _get_my_submissions_page(
 
 
 def _scrape_task_ids(html: str) -> list[str]:
-    return atcoder.utils._unwrap(
+    return optext.option.unwrap(
         atcoder.scrape._scrape_html_options(html, "select-task")
     )
 
 
 def _scrape_language_categories(html: str) -> list[str]:
-    return atcoder.utils._unwrap(
+    return optext.option.unwrap(
         atcoder.scrape._scrape_html_options(html, "select-language")
     )
 
 
 def _scrape_submission_statuses(html: str) -> list[str]:
-    return atcoder.utils._unwrap(
+    return optext.option.unwrap(
         atcoder.scrape._scrape_html_options(html, "select-status")
     )
 
@@ -313,7 +313,7 @@ def _scrape_submission_row(row: bs4.element.Tag) -> SubmissionResult:
     if row.find(class_="waiting-judge") is not None:
         status = SubmissionStatus.WJ
     else:
-        status = atcoder.utils._unwrap(
+        status = optext.option.unwrap(
             _status_from_str(infos[6].text.split()[-1])
         )
     if len(infos) == 10:

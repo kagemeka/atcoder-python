@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import typing
 
+import filesystem.path
 import requests
 import requests.cookies
 
@@ -26,9 +27,7 @@ def _save_cookies(
     cookies: requests.cookies.RequestsCookieJar,
     json_filepath: str,
 ) -> None:
-    import atcoder.utils
-
-    atcoder.utils._prepare_directory(json_filepath)
+    filesystem.path.prepare_directory(json_filepath)
     with open(file=json_filepath, mode="w") as f:
         json.dump(_cookies_to_dict(cookies), f)
 

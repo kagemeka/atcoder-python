@@ -1,16 +1,16 @@
 from __future__ import annotations
+
 import dataclasses
 import logging
-import typing
 
 import bs4
+import optext.option
 import requests
 
 import atcoder.auth
 import atcoder.contest
 import atcoder.language
 import atcoder.scrape
-import atcoder.utils
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -38,7 +38,7 @@ class SubmitPostParams:
 
 def _scrape_csrf_token(html: str) -> str:
     soup = atcoder.scrape._parse_html(html)
-    return atcoder.utils._unwrap(
+    return optext.option.unwrap(
         atcoder.scrape._scrape_csrf_token_in_form(soup.find_all("form")[1])
     )
 
@@ -60,7 +60,7 @@ def _post_submission(
 
 
 def _scrape_task_ids(html: str) -> list[str]:
-    return atcoder.utils._unwrap(
+    return optext.option.unwrap(
         atcoder.scrape._scrape_html_options(html, "select-task")
     )
 

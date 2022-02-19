@@ -1,9 +1,9 @@
 from __future__ import annotations
+
 import dataclasses
 import logging
-import typing
 
-import atcoder.utils
+import optext.option
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -61,7 +61,7 @@ def _download_languages() -> list[Language] | None:
     return languages
 
 
-_LANGUAGES = atcoder.utils._unwrap(_download_languages())
+_LANGUAGES = optext.option.unwrap(_download_languages())
 
 
 _LANGUAGE_FROM_TEXT: dict[str, Language] | None = None
