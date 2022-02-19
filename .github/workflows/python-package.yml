@@ -31,4 +31,4 @@ jobs:
       - name: format and lint and test
         run: |
           source $HOME/.poetry/env
-          ./ci.sh
+          ./scripts/ci.sh
